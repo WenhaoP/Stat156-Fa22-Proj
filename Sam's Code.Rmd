@@ -128,23 +128,25 @@ merged_df = inner_join(x = df, y = monadic_africa_all,by = c('year' = 'YEAR', 'c
 
 merged_df %>% select(year, country.x,ccode) %>% filter(ccode == 565 )
 
-write_csv(x = merged_df, file = 'merged_df.csv')
+# write_csv(x = merged_df, file = 'merged_df.csv')
 ```
 
 ```{r}
 library(sandwich)
 library(stargazer)
-library(estimatr)
-stargazer((lm_robust(
-  GDP_G ~ GPCP_G + GPCP_G_L,
-  data = merged_df,
-  clusters = ccode,
-  se_type = "stata"
-)))
 
+
+# model 1: Economic Growth Rate ~ Growth in rainfall at time t + Growth in rainfall at t - 1. 
 m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = merged_df)
-m1.var = sqrt(sandwich::vcovCL(m1, cluster = ~ccode))
-stargazer(m1, se = m1.var, type = 'text')
+m1.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
+
+# model 2: Economic Growth Rate ~ Growth in rainfall, t +  Growth in rainfall, t - 1 + covariates
+X = merged_df[,c('TOT_100_G','Y_0','polity2l','ethfrac','relfrac','Oil','lpopl1','lmtnest')]
+merged_df %>% select(contains('Iccyear'))
+m2 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L + X + Iccyear*, data = merged_df)
+m2.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
+
+stargazer(m1, se = list(m1.se), type = 'text')
 tibble(coef_test(m1, m1.var,coefs = 2:3))[,1:3]
 
 ```
