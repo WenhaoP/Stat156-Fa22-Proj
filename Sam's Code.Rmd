@@ -1,0 +1,153 @@
+---
+title: "Replication of Miguel 2004 Civil Conflict and Economic Shock"
+author: "Sam Tan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(skimr)
+```
+
+## Civil Conflict
+
+
+```{r}
+setwd("/Users/samtan/Downloads/Replication of Miguel's study")
+main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
+#main =read_csv("ucdp-prio-acd-221.csv")
+africa = read_csv('cow_code.csv')
+raw = haven::read_dta('dataverse_files-4/mss_repdata.dta')
+```
+
+
+```{r}
+#main %>%  mutate(COW_location = as.numeric(COW_location)) %>% select(Startdate) %>% skimr::skim()
+
+main %>% filter((YEAR >= 1981), (YEAR <= 1999), Location == 'Niger')
+
+
+
+monadic = main %>% 
+  select(Type, Intensity, YEAR, COW_location, Location) %>%
+  pivot_wider(id_cols = c(YEAR,COW_location), names_from = Type,values_from = Intensity, values_fn = max, names_prefix = 'Type', values_fill = 0) 
+
+
+
+monadic_africa_conflict = monadic %>% 
+  filter(COW_location %in% africa$CCode) %>% 
+  mutate(COW_location = as.numeric(COW_location))
+  
+monadic_africa_empty = map_df(1:nrow(africa), function(i){
+  # For Namibia, only 9 years are observed (1990 - 1999), instead of all years. Source: Armed Conflict Dataset Codebook, Version 3-2005, page 24
+  if (africa$StateNme[i] == 'Namibia') {
+    bind_cols(Location = africa$StateNme[i], 
+        COW_location = africa$CCode[i], 
+        YEAR = 1990:1999)  # include 1980 and 2000 for the onset and offset variable
+  }
+  else{
+    bind_cols(Location = africa$StateNme[i], 
+        COW_location = africa$CCode[i], 
+        YEAR = 1980:2000)
+    }
+})
+
+
+monadic_africa_all = left_join(
+  monadic_africa_empty, 
+  monadic_africa_conflict, 
+  by = c('COW_location','YEAR'))  %>% 
+  mutate_if(is.numeric,coalesce,0) %>% # The default is peace. No conflict.
+  mutate(WAR_PRIO = ((Type3 == 3)|(Type4 == 3)), 
+         WAR_PRIO_ON = ((lag(WAR_PRIO == F, default = F) & (WAR_PRIO == T))),
+         WAR_PRIO_OFF = ((lag(WAR_PRIO == T, default = F) & (WAR_PRIO == F))), 
+         MINOR_PRIO = ((Type3 == 1)|(Type3 == 2)|(Type4 == 1) | (Type4 == 2)), 
+         MINOR_PRIO_ON = ((lag(MINOR_PRIO == F, default = F) & (MINOR_PRIO == T))), 
+         MINOR_PRIO_OFF = ((lag(MINOR_PRIO == T, default = F) & (MINOR_PRIO == F))), 
+         ANY_PRIO = ((Type3 == 1)|(Type3 == 2)|(Type3 == 3)|(Type4 == 1) | (Type4 == 2) | (Type4 == 3)), 
+         ANY_PRIO_ON = (lag(ANY_PRIO == F,default = F) & (ANY_PRIO == T)),
+         ANY_PRIO_OFF = ((lag(ANY_PRIO == T, default = F) & (ANY_PRIO == F)))) 
+
+monadic_africa_all$ANY_PRIO_ON[lag(monadic_africa_all$ANY_PRIO)] <- NA
+monadic_africa_all$ANY_PRIO_OFF[!lag(monadic_africa_all$ANY_PRIO)] <- NA
+monadic_africa_all$MINOR_PRIO_ON[lag(monadic_africa_all$MINOR_PRIO)] <- NA
+monadic_africa_all$MINOR_PRIO_OFF[!lag(monadic_africa_all$MINOR_PRIO)] <- NA
+monadic_africa_all$WAR_PRIO_ON[lag(monadic_africa_all$WAR_PRIO)] <- NA
+monadic_africa_all$WAR_PRIO_OFF[!lag(monadic_africa_all$WAR_PRIO)] <- NA
+
+monadic_africa_all =  monadic_africa_all %>%
+    filter((YEAR >= 1981) & (YEAR <= 1999)) 
+
+tablec1 = monadic_africa_all %>% 
+  group_by(Location) %>% 
+  summarise(Year_count = length(YEAR),
+            Minor = sum(ANY_PRIO), 
+            War = sum(WAR_PRIO)) %>% 
+  arrange((Location)) %>% 
+  janitor::adorn_totals()
+
+
+tablec1 %>% knitr::kable(col.names = c('Country', 'Total
+Years', "Years of Civil Conﬂict ≥25 Deaths (PRIO/Uppsala)",
+"Years of Civil Conﬂict ≥1,000 Deaths (PRIO/Uppsala)"))
+
+# TODO fix the on off set 
+monadic_africa_all  %>% 
+  summarise(mean = c(mean(ANY_PRIO, na.rm = T), 
+                     mean(ANY_PRIO_ON,na.rm = T),
+                     mean(ANY_PRIO_OFF,na.rm = T),
+                     mean(WAR_PRIO, na.rm = T), 
+                     mean(WAR_PRIO_ON,na.rm = T),
+                     mean(WAR_PRIO_OFF,na.rm = T)),
+           sd = c(sd(ANY_PRIO,na.rm = T), 
+                     sd(ANY_PRIO_ON,na.rm = T),
+                     sd(ANY_PRIO_OFF,na.rm = T), 
+                     sd(WAR_PRIO,na.rm = T), 
+                     sd(WAR_PRIO_ON,na.rm = T),
+                     sd(WAR_PRIO_OFF,na.rm = T)), 
+           obs = c(length(na.omit(ANY_PRIO)), 
+                    length(na.omit(ANY_PRIO_ON)),
+                     length(na.omit(ANY_PRIO_OFF)), 
+                     length(na.omit(WAR_PRIO)), 
+                     length(na.omit(WAR_PRIO_ON)),
+                     length(na.omit(WAR_PRIO_OFF)))
+              )
+            
+           
+#cc =haven::read_dta("/Users/samtan/Downloads/Replication of Miguel's study/dataverse_files-4/mss_repdata.dta")
+
+```
+
+# Merge data
+
+```{r}
+df = read_csv('clean_data.csv')
+merged_df = inner_join(x = df, y = monadic_africa_all,by = c('year' = 'YEAR', 'ccode' = 'COW_location'))
+
+merged_df %>% select(year, country.x,ccode) %>% filter(ccode == 565 )
+
+write_csv(x = merged_df, file = 'merged_df.csv')
+```
+
+```{r}
+library(sandwich)
+library(stargazer)
+library(estimatr)
+stargazer((lm_robust(
+  GDP_G ~ GPCP_G + GPCP_G_L,
+  data = merged_df,
+  clusters = ccode,
+  se_type = "stata"
+)))
+
+m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = merged_df)
+m1.var = sqrt(sandwich::vcovCL(m1, cluster = ~ccode))
+stargazer(m1, se = m1.var, type = 'text')
+tibble(coef_test(m1, m1.var,coefs = 2:3))[,1:3]
+
+```
+
+
+
