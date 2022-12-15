@@ -204,13 +204,11 @@ rmse7 = sqrt(mean(iv2sls_7$residuals^2))
 
 # Summary table 4:
 stargazer(probit_model,ols2,ols3,ols4,iv2sls_5,iv2sls_6,iv2sls_7,se = list(probit.se, ols2.se, ols3.se, ols4.se, iv2sls_5.se, iv2sls_6.se, iv2sls_7.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
-
-
 ```
 
 # Table 3
 ```{r}
-
+master_df = master_df[!is.na(master_df$GDP_G),]
 t3_m1formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'),response = 'ANY_PRIO')
 
 t3_m1 = lm(formula = t3_m1formula, data = master_df)
@@ -291,7 +289,7 @@ stargazer(iv2sls_1,iv2sls_2,iv2sls_3,iv2sls_4,iv2sls_5,se = list(iv2sls_1.se, iv
 ```
 
 
-# Table 6: Economic shocks on the onset of civil conflict
+# T6: Economic shocks on the onset of civil conflict
 ```{r}
 # IV 2SLS 1:
 # stage 1:
@@ -318,7 +316,7 @@ stargazer(iv2sls_1,iv2sls_2,header = F, type = 'text', omit = c('Iccyear','Iccod
 ```
 
 
-# table c1
+# Tc1
 ```{r}
 tablec1 = merged_df[!is.na(merged_df$GDP_G),] %>% 
   group_by(Location) %>% 
@@ -332,7 +330,7 @@ tablec1 = merged_df[!is.na(merged_df$GDP_G),] %>%
 
 tablec1 %>% knitr::kable(col.names = c('Country', 'Total Years', "Years of Civil Conﬂict ≥25 Deaths (PRIO/Uppsala)", "Years of Civil Conﬂict ≥1,000 Deaths (PRIO/Uppsala)"))
 ```
-# Table 1
+# T1
 ```{r}
 master_df[!is.na(master_df$'GDP_G'),]  %>%
   summarise(mean = c(mean(ANY_PRIO, na.rm = T),
@@ -358,5 +356,12 @@ master_df[!is.na(master_df$'GDP_G'),]  %>%
                'WAR_PRIO', 'WAR_PRIO_ON', 'WAR_PRIO_OFF')) %>% 
   knitr::kable()
 ```
+
+# Inversion Method
+
+```{r} 
+
+```
+
 
 
