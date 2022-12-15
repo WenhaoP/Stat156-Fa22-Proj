@@ -2,24 +2,28 @@
 title: "Replication of Miguel 2004 Civil Conflict and Economic Shock"
 author: "Sam Tan"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = F)
 library(tidyverse)
 library(skimr)
+knitr::opts_knit$set(root.dir = "/Users/samtan/Downloads/Replication of Miguel's study")
 ```
 
 ## Civil Conflict
 
 
 ```{r}
-setwd("/Users/samtan/Downloads/Replication of Miguel's study")
 main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
 #main =read_csv("ucdp-prio-acd-221.csv")
 africa = read_csv('cow_code.csv')
-raw = haven::read_dta('dataverse_files-4/mss_repdata.dta')
+# raw = haven::read_dta('dataverse_files-4/mss_repdata.dta')
 ```
 
 
@@ -132,22 +136,68 @@ merged_df %>% select(year, country.x,ccode) %>% filter(ccode == 565 )
 ```
 
 ```{r}
+library(fastDummies)
 library(sandwich)
 library(stargazer)
 
 
 # model 1: Economic Growth Rate ~ Growth in rainfall at time t + Growth in rainfall at t - 1. 
 m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = merged_df)
+m1.coef = m1$coefficients[c("GPCP_G","GPCP_G_L")]
 m1.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
 
 # model 2: Economic Growth Rate ~ Growth in rainfall, t +  Growth in rainfall, t - 1 + covariates
-X = merged_df[,c('TOT_100_G','Y_0','polity2l','ethfrac','relfrac','Oil','lpopl1','lmtnest')]
-merged_df %>% select(contains('Iccyear'))
-m2 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L + X + Iccyear*, data = merged_df)
-m2.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
+X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 
-stargazer(m1, se = list(m1.se), type = 'text')
-tibble(coef_test(m1, m1.var,coefs = 2:3))[,1:3]
+# fixed effect for each country (in dummies)
+Iccode = fastDummies::dummy_cols(.data = merged_df$ccode,remove_selected_columns = T,remove_first_dummy = T) %>% tibble()
+
+# extract the years for each country in dummies form
+Iccyear = Iccode * merged_df$year 
+
+# merge the dummies to the main dataframe
+names(Iccode) = paste0("Iccode", names(Iccode))
+names(Iccyear) = paste0("Iccyear", names(Iccyear))
+Iccyear = Iccyear %>% rowid_to_column("ID")
+Iccode = Iccode %>% rowid_to_column("ID")
+
+dummies_df = left_join(x = Iccode, y = Iccyear, by = 'ID')
+
+master_df = left_join(merged_df,dummies_df,by = c('...1' = 'ID'))  
+# model formula for m2
+m2formula = reformulate(termlabels = c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',X),response = 'GDP_G')
+
+m2 = lm(formula = m2formula, data = master_df)
+m2.coef = m2$coefficients[c('GPCP_G','GPCP_G_L',X)]
+m2.se = sqrt(diag(sandwich::vcovCL(m2, cluster = ~ccode,type = 'HC1')))[c('GPCP_G','GPCP_G_L',X)]
+
+# m3
+m3formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'),response = 'GDP_G')
+
+m3 = lm(formula = m3formula, data = master_df)
+m3.coef = m3$coefficients[c('GPCP_G','GPCP_G_L')]
+m3.se = sqrt(diag(sandwich::vcovCL(m3, cluster = ~ccode,type = 'HC1')))[c('GPCP_G','GPCP_G_L')]
+
+# m4
+m4formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',"GPCP_G_FL"),response = 'GDP_G')
+
+m4 = lm(formula = m4formula, data = master_df)
+m4.coef = m4$coefficients[c('GPCP_G','GPCP_G_L','GPCP_G_FL')]
+m4.se = sqrt(diag(sandwich::vcovCL(m4, cluster = ~ccode,type = 'HC1')))[c('GPCP_G','GPCP_G_L','GPCP_G_FL')]
+
+
+# m5
+m5formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L','TOT_100_G'),response = 'GDP_G')
+
+m5 = lm(formula = m5formula, data = master_df)
+m5.coef = m5$coefficients[c('GPCP_G','GPCP_G_L','TOT_100_G')]
+m5.se = sqrt(diag(sandwich::vcovCL(m5, cluster = ~ccode,type = 'HC1')))[c('GPCP_G','GPCP_G_L','TOT_100_G')]
+
+# table 2
+stargazer(m1,m2,m3,m4,m5,omit = c('Iccode', 'Iccyear'), omit.labels = c("Country fixed effect", "Country-speciﬁc time trend"),column.label = "Economic Growth Rate, t", covariate.labels = c("Growth in rainfall, t", "Growth in rainfall, t-1", "Growth in rainfall, t+1", "Growth in terms of trade t", "Log(GDP per capita), 1979", "Democracy (Polity
+ IV), t-1","Ethnolinguistic fractionalization", "Religious fractionalization", "Oil-exporting Country", "Log(mountainous)", "Log(national popu-
+ lation), t _ 1"))
+
 
 ```
 
