@@ -86,25 +86,12 @@ monadic_africa_all =  monadic_africa_all %>%
     filter((YEAR >= 1981) & (YEAR <= 1999))
 ```
 
-# Merge data
 
-```{r}
+# Adding fixed effects and country specific effects
+```{r results='asis'}
 df = read_csv('clean_data.csv')
 merged_df = inner_join(x = df, y = monadic_africa_all,by = c('year' = 'YEAR', 'ccode' = 'COW_location'))
 
-# write_csv(x = merged_df, file = 'merged_df.csv')
-```
-
-# Data Cleaning 
-```{r results='asis'}
-
-# model 1: Economic Growth Rate ~ Growth in rainfall at time t + Growth in rainfall at t - 1. 
-m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = merged_df)
-m1.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
-
-# model 2: Economic Growth Rate ~ Growth in rainfall, t +  Growth in rainfall, t - 1 + covariates
-X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
-X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 # fixed effect for each country (in dummies)
 Iccode = fastDummies::dummy_cols(.data = merged_df$ccode,remove_selected_columns = T,remove_first_dummy = T) %>% tibble()
 
@@ -119,6 +106,20 @@ Iccode = Iccode %>% rowid_to_column("ID")
 merged_df = merged_df %>% rowid_to_column("ID")
 dummies_df = left_join(x = Iccode, y = Iccyear, by = 'ID')
 master_df = left_join(merged_df,dummies_df,by = c('ID' = 'ID'))  
+master_df = master_df %>% 
+  filter(!is.na(GDP_G_L)) %>% 
+  filter(!(is.na(GDP_G)))
+```
+
+# T2
+```{r results='asis'}
+# model 1: Economic Growth Rate ~ Growth in rainfall at time t + Growth in rainfall at t - 1. 
+m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = master_df)
+m1.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
+
+# model 2: Economic Growth Rate ~ Growth in rainfall, t +  Growth in rainfall, t - 1 + covariates
+X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
+X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 
 # model formula for m2
 m2formula = reformulate(termlabels = c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',X),response = 'GDP_G')
@@ -208,7 +209,6 @@ stargazer(probit_model,ols2,ols3,ols4,iv2sls_5,iv2sls_6,iv2sls_7,se = list(probi
 
 # Table 3
 ```{r}
-master_df = master_df[!is.na(master_df$GDP_G),]
 t3_m1formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'),response = 'ANY_PRIO')
 
 t3_m1 = lm(formula = t3_m1formula, data = master_df)
@@ -318,7 +318,7 @@ stargazer(iv2sls_1,iv2sls_2,header = F, type = 'text', omit = c('Iccyear','Iccod
 
 # Tc1
 ```{r}
-tablec1 = merged_df[!is.na(merged_df$GDP_G),] %>% 
+tablec1 = master_df %>% 
   group_by(Location) %>% 
   summarise(Year_count = length(year),
             Minor = sum(ANY_PRIO), 
@@ -332,7 +332,7 @@ tablec1 %>% knitr::kable(col.names = c('Country', 'Total Years', "Years of Civil
 ```
 # T1
 ```{r}
-master_df[!is.na(master_df$'GDP_G'),]  %>%
+master_df  %>%
   summarise(mean = c(mean(ANY_PRIO, na.rm = T),
                      mean(ANY_PRIO_ON,na.rm = T),
                      mean(ANY_PRIO_OFF,na.rm = T),
