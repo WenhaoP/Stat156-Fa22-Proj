@@ -165,9 +165,9 @@ ols4.se = sqrt(diag(sandwich::vcovCL(ols4, cluster = ~ccode,type = 'HC1')))
 
 # IV 2SLS 5:
 # stage 1:
-m5formula1 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G',X))
+m5formula1 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',X))
 # stage 2: 
-m5formula2 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G_L'),response = 'ANY_PRIO')
+m5formula2 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G_L', "GDP_G"),response = 'ANY_PRIO')
 
 iv2sls_5 = ivreg(formula = m5formula2, instruments = m5formula1, data = master_df)
 iv2sls_5.se = sqrt(diag(sandwich::vcovCL(iv2sls_5, cluster = ~ccode,type = 'HC1')))
@@ -175,9 +175,9 @@ rmse5 = sqrt(mean(iv2sls_5$residuals^2))
 
 # IV 2SLS 6:
 # stage 1:
-m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G'))
+m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G', "GPCP_G_L"))
 # stage 2: 
-m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L'),response = 'ANY_PRIO')
+m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G"),response = 'ANY_PRIO')
 #m5_2 = lm(m5formula2, data = master_df)
 
 iv2sls_6 = ivreg(formula = m6formula2, instruments = m6formula1, data = master_df)
@@ -186,9 +186,9 @@ rmse6 = sqrt(mean(iv2sls_6$residuals^2))
 
 # IV 2SLS 7:
 # stage 1:
-m7formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G'))
+m7formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G', "GPCP_G_L"))
 # stage 2: 
-m7formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L'),response = 'WAR_PRIO')
+m7formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G"),response = 'WAR_PRIO')
 
 iv2sls_7 = ivreg(formula = m7formula2, instruments = m7formula1, data = master_df)
 iv2sls_7.se = sqrt(diag(sandwich::vcovCL(iv2sls_7, cluster = ~ccode,type = 'HC1')))
@@ -277,6 +277,8 @@ rmse5 = sqrt(mean(iv2sls_5$residuals^2))
 
 stargazer(iv2sls_1,iv2sls_2,iv2sls_3,iv2sls_4,iv2sls_5,se = list(iv2sls_1.se, iv2sls_2.se, iv2sls_3.se, iv2sls_4.se, iv2sls_5.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
 
+
+
 ```
 
 
@@ -348,8 +350,60 @@ master_df  %>%
   knitr::kable()
 ```
 
+# Robustness Check
 
-# Inversion Method
+```{r}
+# IV 2SLS 6:
+# stage 1:
+m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G', "GPCP_G_L"))
+# stage 2: 
+m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G"),response = 'ANY_PRIO')
+
+
+subset_iv = map_df(1:41, function(i){
+  
+ .df =  master_df  %>% filter(ccode != unique(ccode)[i])
+  .model = AER::ivreg(formula = m6formula2, instruments = m6formula1, data = .df)
+  GDP_G.coef = .model$coefficient['GDP_G'] 
+  GDP_G_L.coef = .model$coefficient['GDP_G_L']
+  
+  GDP_G.se = sqrt(diag(sandwich::vcovCL(x = .model, cluster = .df$ccode,type = 'HC1',)))['GDP_G']
+  GDP_G_L.se = sqrt(diag(sandwich::vcovCL(x = .model, cluster = .df$ccode,type = 'HC1',)))['GDP_G_L']
+  p.value.GDP_G = (1 - pnorm(q = abs(GDP_G.coef/GDP_G.se)))*2
+  p.value.GDP_G_L = (1 - pnorm(q = abs(GDP_G_L.coef/GDP_G_L.se)))*2
+  
+  names(p.value.GDP_G) = 'p.value.GDP_G'   
+  names(p.value.GDP_G_L) = 'p.value.GDP_G_L'   
+  names(GDP_G.coef) = 'GDP_G.coef'
+  names(GDP_G_L.coef) = 'GDP_G_L.coef'
+  names(GDP_G.se) = 'GDP_G.se'
+  names(GDP_G_L.se) = 'GDP_G_L.se'
+  
+  return(c(GDP_G.coef,
+         GDP_G_L.coef,
+         p.value.GDP_G, 
+         GDP_G.se, 
+         GDP_G_L.se, 
+         p.value.GDP_G_L))
+})
+
+range(subset_iv[,'GDP_G.coef'])
+range(subset_iv[,'GDP_G_L.coef'])
+range(subset_iv[,'p.value.GDP_G'])
+range(subset_iv[,'p.value.GDP_G_L'])
+
+ 
+
+  
+
+
+
+stargazer(iv2sls_6,se = list(iv2sls_6.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
+
+
+```
+
+# Re-analysis: Inversion Method
 
 
 ```{r} 
@@ -400,6 +454,7 @@ ARCI = CI.Y1.z1.d1
 abline(v = ARCI[1], lty = 2, col = "grey")
 abline(v = ARCI[2], lty = 2, col = "grey")
 ```
+
 
 
 
