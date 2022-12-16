@@ -21,20 +21,12 @@ library(stargazer)
 knitr::opts_knit$set(root.dir = "/Users/samtan/Downloads/Replication of Miguel's study")
 ```
 
-## Civil Conflict
-
+## Data Cleaning for the Civil Conflict Data
 
 ```{r}
 main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
 africa = read_csv('cow_code.csv')
 # raw = haven::read_dta('dataverse_files-4/mss_repdata.dta')
-```
-
-
-```{r}
-#main %>%  mutate(COW_location = as.numeric(COW_location)) %>% select(Startdate) %>% skimr::skim()
-
-
 monadic = main %>% 
   select(Type, Intensity, YEAR, COW_location, Location) %>%
   pivot_wider(id_cols = c(YEAR,COW_location), names_from = Type,values_from = Intensity, values_fn = max, names_prefix = 'Type', values_fill = 0) 
@@ -84,11 +76,8 @@ monadic_africa_all$WAR_PRIO_OFF[!lag(monadic_africa_all$WAR_PRIO)] <- NA
 
 monadic_africa_all =  monadic_africa_all %>%
     filter((YEAR >= 1981) & (YEAR <= 1999))
-```
-
 
 # Adding fixed effects and country specific effects
-```{r results='asis'}
 df = read_csv('clean_data.csv')
 merged_df = inner_join(x = df, y = monadic_africa_all,by = c('year' = 'YEAR', 'ccode' = 'COW_location'))
 
@@ -109,6 +98,9 @@ master_df = left_join(merged_df,dummies_df,by = c('ID' = 'ID'))
 master_df = master_df %>% 
   filter(!is.na(GDP_G_L)) %>% 
   filter(!(is.na(GDP_G)))
+
+X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
+X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 ```
 
 # T2
@@ -118,8 +110,7 @@ m1 = lm(formula = GDP_G ~ GPCP_G + GPCP_G_L, data = master_df)
 m1.se = sqrt(diag(sandwich::vcovCL(m1, cluster = ~ccode,type = 'HC1')))
 
 # model 2: Economic Growth Rate ~ Growth in rainfall, t +  Growth in rainfall, t - 1 + covariates
-X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
-X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
+
 
 # model formula for m2
 m2formula = reformulate(termlabels = c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',X),response = 'GDP_G')
@@ -360,6 +351,53 @@ master_df  %>%
 # Inversion Method
 
 ```{r} 
+# (Fieller-)Anderson-Rubin test
+# construct confidence interval for IV using the duality between hypothesis testing and confidence interval
+
+
+get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
+  .data  = master_df
+
+  if (with_cov == F) {
+    rformula = reformulate(c(grep('Iccyear|Iccode',x = names(.data),value = T), z),response = 'adj_y')
+  }
+  else(
+    rformula = reformulate(c(grep('Iccyear',x = names(.data),value = T),X, 'GPCP_G'),response = 'adj_y')
+  )
+  
+  D = master_df[[d]]
+  Y = master_df[[y]]
+  p.values = map_dbl(betas, function(b){
+    # b is the coefficient of interest. 
+    .data$adj_y = Y - b*D
+    reg = glm(rformula,data = .data,family = 'gaussian')
+    coef.z = reg$coefficients[z]
+    se.z = sqrt(diag(hccm(reg))[z])
+    Tstat = coef.z/se.z
+    p.value = (1 - pt(q = abs(Tstat),df = reg$df.residual))*2
+    return(p.value)
+  })
+  return(p.values)
+}
+
+
+betas = seq(-10,10,0.01)
+AR_pvals.Y1.z1.d1 = get_AR_pvals(y = 'ANY_PRIO', z  = 'GPCP_G', d = 'GDP_G', with_cov = T, betas = betas)
+
+point.est.Y1.z1.d1 =  betas[which.max(AR_pvals.Y1.z1.d1)]
+CI.Y1.z1.d1 = range(betas[AR_pvals.Y1.z1.d1 >= 0.05])
+
+plot(AR_pvals.Y1.z1.d1 ~ betas, type = "l",
+     xlab = "coefficient of GDP Growth",
+     ylab = "p-value",
+     main = "Anderson-Rubin interval for the effect of GDP Growth on Civil Conflict")
+abline(h = 0.05, lty = 2, col = "grey")
+abline(v = point.est.Y1.z1.d1, lty = 2, col = "grey")
+
+ARCI = CI.Y1.z1.d1
+abline(v = ARCI[1], lty = 2, col = "grey")
+abline(v = ARCI[2], lty = 2, col = "grey")
+
 
 ```
 
