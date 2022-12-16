@@ -216,7 +216,7 @@ t3_m2.se = sqrt(diag(sandwich::vcovCL(t3_m2, cluster = ~ccode,type = 'HC1')))
 stargazer(t3_m1,t3_m2,header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"), se = list(t3_m1.se,t3_m2.se)) 
 ```
 
-# Table 5: Interactions between Economic Growth and Country Characteristics Dependent Variable: Civil Conﬂict ≥25 Deaths
+# T5: Interactions between Economic Growth and Country Characteristics Dependent Variable: Civil Conﬂict ≥25 Deaths
 
 ```{r}
 # IV 2SLS (1): Interactions between Economic Growth and Democracy on Civil Conﬂict

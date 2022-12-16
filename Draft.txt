@@ -25,7 +25,9 @@ Critical appraisal of causal identification assumption:
 
 The first assumption can be tested using the data. We replicated Table 2 of the original paper, which shows that rainfall is indeed related to economic growth[^insert table 2?]. However, the rainfall instruments are weak  (the F-statistic is 4.0 in regression 3 in table 2). The authors also acknowledged that the instrument is not strongly correlated with the treatment, but they proceeded to use 2SLS (two staged least squares) to estimate the causal effect. A weak instrument poses a potential threat to the assotytic normality assumption required for the validity of 2SLS confidence level, even if clustered robust standard errors are used. Therefore, as an additional robustness check, we used the Fieller-Anderson-Rubin test (The "inversion" Test) to contruct confidence intervals robust to weak IV, and compared them with the original 2SLS confidence level given by the authors. The details will be in the re-analysis section. 
 
-The second assumption can only be tested partily through the data. We replicated regression 2 , 4 in Table 2. 
+The second assumption can only be tested partily through data. Regression 2 in Table 2 aims to test the correlation between observed covariants and rainfall (the instrument). We successfully replicated the authors' result and showed that the observed covariants are indeed uncorrelated with the instrument. However, there could be unobserved covariants that are correlated with the instrument. For example, as the authors acknowledged, 
+
+ to test
  of authors' 
 
 Robustness check: 
