@@ -101,7 +101,7 @@ master_df = master_df %>%
 
 X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
-write_csv(x = master_df, file = 'master_df.csv')
+# write_csv(x = master_df, file = 'master_df.csv')
 
 ```
 

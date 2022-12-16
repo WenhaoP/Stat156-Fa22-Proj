@@ -1,0 +1,23 @@
+The outcome of interest is the intensity and frequency of civil conflicts in Sub-saharan Africa between the year 1981 and 1999. The data comes from Armed Conflict Dataset published joinly by Peace Research Institute, Oslo (PRIO) and Department of Peace and Conflict Research, Uppsala University. is the main data 
+
+The Armed Conflict Dataset is the main data source for understanding civil conflicts, the outcome of interest. Unfortunately, since the study was published in 2004, there has been numerous updates to the dataset and the verison that the authors used in the paper are not longer available on the internet. We used the oldest verison of the dataset that we could find (Verison3, published in 2005). Another big challenge we faced is that the authors used the "monadic" verison of the dataset, a derived verison of the main Armed Conflict Dataset. By "monadic" we refer to a data structure where a country is the main unit of analysis with one row for each **country** each year. However, the raw Armed Conflict Dataset uses one row for each **conflict** each year. To our disappointment, the International Peace Research Institute, Oslo (PRIO) stopped publishing the "monadic" verison of the dataset. Therefore, we have to use the Armed Conflict Dataset to regenerate the "monadic" verison of the dataset on our own. The following summary table compares the dataset we used and the dataset that the authors used. 
+
+The dataset we used has less overall conflicts and wars compared with the authors', notably for South Africa. Investigating carefully, we found out some conflicts has been removed from Version 2.1 to Version 3.0 of the dataset, and the conflicts at South Africa from 1989 to 1993 were removed without explainations (page 121, UCDP/PRIO Armed Conflict Dataset's Version History and Known Errata, version 22.1). Similarly, two conflicts have been removed for Niger and one conflict have been removed for Liberia and Burundi, respectively.    Those changes led to a reduction of the overall conflicts and wars in our dataset compared to the authors'. In sebseqent analysis, we will see that the removal of those data points have a substential impact on the estimated relationship between economic growth and armed conflict in Africa.  
+
+What's next: describe table 4 and table 5. 
+
+====
+Working in progress: Replicate the main results
+
+
+1. Describe the empirical method in identifying the causal effect (for instance, whether the researchers conduct a randomized experiment or use policy changes to answer their research questions) and state their assumptions for identifying the causal effect clearly in both English and mathematics;
+2. Replicate the main result of the paper and interpret it in English;
+3. Critically appraise the stated assumptions for causal identification.
+
+The authors used **linear instrumental variable model** to identify the casual effect of economic growth on the intensity and frequency of civil conflicts in Sub-saharan Africa between the year 1981 and 1999. There are two critical assumptions for the identification of causal effect using linear IV model:
+- First, we need **exclusion restriction** - difference in rainfall needs to affacts civil conflict only through the treatment.  Mathmatically, it's cov(Z, \epslion)|X = 0, or E(Z\epslion)|X = 0. 
+- Second, we need relevance. The intrument needs to be correlated with the treatment. 
+
+  2. Exclusion Restriction 
+
+Is it legible to use robust SE for TSLS? 
