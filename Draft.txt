@@ -15,9 +15,33 @@ Working in progress: Replicate the main results
 3. Critically appraise the stated assumptions for causal identification.
 
 The authors used **linear instrumental variable model** to identify the casual effect of economic growth on the intensity and frequency of civil conflicts in Sub-saharan Africa between the year 1981 and 1999. There are two critical assumptions for the identification of causal effect using linear IV model:
-- First, we need **exclusion restriction** - difference in rainfall needs to affacts civil conflict only through the treatment.  Mathmatically, it's cov(Z, \epslion)|X = 0, or E(Z\epslion)|X = 0. 
-- Second, we need relevance. The intrument needs to be correlated with the treatment. 
+- First, we need relevance. Rainfall (the instrument) needs to be sufficiently correlated with the economic growth (treatment) in Sub-saharan Africa. Mathmatically, it's cov(Z, D) != 0. 
+- Second, we need **exclusion restriction**: difference in rainfall needs to affacts civil conflict only through economic growth, conditional on all covariants.  Mathmatically, it's E(Z\epslion |X) = 0[^latex]. 
+
+
+
+
+Critical appraisal of causal identification assumption: 
+
+The first assumption can be tested using the data. We replicated Table 2 of the original paper, which shows that rainfall is indeed related to economic growth[^insert table 2?]. However, the rainfall instruments are weak  (the F-statistic is 4.0 in regression 3 in table 2). The authors also acknowledged that the instrument is not strongly correlated with the treatment, but they proceeded to use 2SLS (two staged least squares) to estimate the causal effect. A weak instrument poses a potential threat to the assotytic normality assumption required for the validity of 2SLS confidence level, even if clustered robust standard errors are used. Therefore, as an additional robustness check, we used the Fieller-Anderson-Rubin test (The "inversion" Test) to contruct confidence intervals robust to weak IV, and compared them with the original 2SLS confidence level given by the authors. The details will be in the re-analysis section. 
+
+The second assumption can only be tested partily through the data. We replicated regression 2 , 4 in Table 2. 
+ of authors' 
+
+Robustness check: 
+- As an identiﬁcation check, we estimate a “false experiment” speciﬁcation in which future rainfall growth—which should be orthogonal to current economic growth, conditional on countryspeciﬁc time trends—is included as an additional explanatory variable. and we ﬁnd that the coefﬁcient estimate is indeed near zero (coefﬁcient estimate 0.001, standard error 0.019, in regression 4 of table 2). 
+- robustness checks and explore different dependent variables. The IV-2SLS ﬁxed-effects results for the 25-death threshold are robust to dropping one country at a time, with coefﬁcients on lagged economic growth ranging from 2.9 to 1.9 and remaining signiﬁcant at 94 percent conﬁdence levels in all regressions. 
+
+
+ required  is required for the  assumption. 
+
+ lead to an inprecise estimate of the 
+
+The standard error 
+A weak instrument 
+
+ the finding of  following 
 
   2. Exclusion Restriction 
 
-Is it legible to use robust SE for TSLS? 
+TODO: Is it legible to use robust SE for TSLS? When there are multiple treatment 
