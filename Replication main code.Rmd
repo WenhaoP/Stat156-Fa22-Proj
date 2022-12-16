@@ -101,6 +101,8 @@ master_df = master_df %>%
 
 X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
+write_csv(x = master_df, file = 'master_df.csv')
+
 ```
 
 # T2
@@ -165,9 +167,9 @@ ols4.se = sqrt(diag(sandwich::vcovCL(ols4, cluster = ~ccode,type = 'HC1')))
 
 # IV 2SLS 5:
 # stage 1:
-m5formula1 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L',X))
+m5formula1 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),'GPCP_G',X))
 # stage 2: 
-m5formula2 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G_L', "GDP_G"),response = 'ANY_PRIO')
+m5formula2 = reformulate(c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G_L'),response = 'ANY_PRIO')
 
 iv2sls_5 = ivreg(formula = m5formula2, instruments = m5formula1, data = master_df)
 iv2sls_5.se = sqrt(diag(sandwich::vcovCL(iv2sls_5, cluster = ~ccode,type = 'HC1')))
@@ -175,9 +177,9 @@ rmse5 = sqrt(mean(iv2sls_5$residuals^2))
 
 # IV 2SLS 6:
 # stage 1:
-m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'))
+m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G'))
 # stage 2: 
-m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G"),response = 'ANY_PRIO')
+m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L'),response = 'ANY_PRIO')
 #m5_2 = lm(m5formula2, data = master_df)
 
 iv2sls_6 = ivreg(formula = m6formula2, instruments = m6formula1, data = master_df)
@@ -186,9 +188,9 @@ rmse6 = sqrt(mean(iv2sls_6$residuals^2))
 
 # IV 2SLS 7:
 # stage 1:
-m7formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'))
+m7formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G'))
 # stage 2: 
-m7formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G"),response = 'WAR_PRIO')
+m7formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L'),response = 'WAR_PRIO')
 
 iv2sls_7 = ivreg(formula = m7formula2, instruments = m7formula1, data = master_df)
 iv2sls_7.se = sqrt(diag(sandwich::vcovCL(iv2sls_7, cluster = ~ccode,type = 'HC1')))
@@ -348,7 +350,9 @@ master_df  %>%
   knitr::kable()
 ```
 
+
 # Inversion Method
+
 
 ```{r} 
 # (Fieller-)Anderson-Rubin test
@@ -362,7 +366,7 @@ get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
     rformula = reformulate(c(grep('Iccyear|Iccode',x = names(.data),value = T), z),response = 'adj_y')
   }
   else(
-    rformula = reformulate(c(grep('Iccyear',x = names(.data),value = T),X, 'GPCP_G'),response = 'adj_y')
+    rformula = reformulate(c(grep('Iccyear',x = names(.data),value = T),X, z),response = 'adj_y')
   )
   
   D = master_df[[d]]
@@ -382,7 +386,7 @@ get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
 
 
 betas = seq(-10,10,0.01)
-AR_pvals.Y1.z1.d1 = get_AR_pvals(y = 'ANY_PRIO', z  = 'GPCP_G', d = 'GDP_G', with_cov = T, betas = betas)
+AR_pvals.Y1.z1.d1 = get_AR_pvals(y = 'ANY_PRIO', z  = 'GPCP_G', d = 'GDP_G_L', with_cov = T, betas = betas)
 
 point.est.Y1.z1.d1 =  betas[which.max(AR_pvals.Y1.z1.d1)]
 CI.Y1.z1.d1 = range(betas[AR_pvals.Y1.z1.d1 >= 0.05])
@@ -397,8 +401,6 @@ abline(v = point.est.Y1.z1.d1, lty = 2, col = "grey")
 ARCI = CI.Y1.z1.d1
 abline(v = ARCI[1], lty = 2, col = "grey")
 abline(v = ARCI[2], lty = 2, col = "grey")
-
-
 ```
 
 
