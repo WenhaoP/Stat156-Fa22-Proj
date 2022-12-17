@@ -21,7 +21,7 @@ library(stargazer)
 knitr::opts_knit$set(root.dir = "/Users/samtan/Downloads/Replication of Miguel's study")
 ```
 
-## Data Cleaning for the Civil Conflict Data
+# Data Cleaning
 
 ```{r}
 main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
@@ -76,14 +76,14 @@ monadic_africa_all =  monadic_africa_all %>%
     filter((YEAR >= 1981) & (YEAR <= 1999))
 
 # Adding fixed effects and country specific effects
-df = read_csv('clean_data.csv')
-merged_df = inner_join(x = df, y = monadic_africa_all,by = c('year' = 'YEAR', 'ccode' = 'COW_location'))
+clean_df = read_csv('clean_data.csv')
+merged_df = inner_join(x = clean_df, y = monadic_africa_all,by = c('year' = 'YEAR', 'ccode' = 'COW_location'))
 
 # fixed effect for each country (in dummies)
 Iccode = fastDummies::dummy_cols(.data = merged_df$ccode,remove_selected_columns = T,remove_first_dummy = T) %>% tibble()
 
 # extract the years for each country in dummies form
-Iccyear = Iccode * merged_df$year 
+Iccyear = Iccode * (merged_df$year - 1978)
 
 # merge the dummies to the main dataframe
 names(Iccode) = paste0("Iccode", names(Iccode))
@@ -95,12 +95,13 @@ dummies_df = left_join(x = Iccode, y = Iccyear, by = 'ID')
 master_df = left_join(merged_df,dummies_df,by = c('ID' = 'ID'))  
 master_df = master_df %>% 
   filter(!is.na(GDP_G_L)) %>% 
-  filter(!(is.na(GDP_G)))
+  filter(!(is.na(GDP_G))) %>% 
+  mutate(year_actual = year, year = year_actual - 1978)
 
+# covariates
 X = c('Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
 X_log = c('log_Y_0','polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1')
-# write_csv(x = master_df, file = 'master_df.csv')
-
+write.csv(x = master_df, file = 'master_df.csv', row.names = FALSE)
 ```
 
 # T2
@@ -143,7 +144,6 @@ stargazer(m1,m2,m3,m4,m5,se=list(m1.se,m2.se,m3.se,m4.se,m5.se),header = F, type
 # T4: OLS VERSUS 2SLS
 
 ```{r}
-master_df = master_df %>% mutate(year_actual = year, year = year_actual - 1978)
 rformula = reformulate(termlabels = c(X,'GDP_G', 'GDP_G_L', 'year'),response = 'ANY_PRIO')
 probit_model = glm(rformula, family = binomial(link = "probit"), data = master_df)
 probit.se = sqrt(diag(sandwich::vcovCL(probit_model, cluster = ~ccode,type = 'HC1')))
@@ -209,8 +209,10 @@ rmse7 = round(sqrt(mean(iv2sls_7$residuals^2)),3)
 stargazer(probit_model,ols2,ols3,ols4,iv2sls_5,iv2sls_6,iv2sls_7,se = list(probit.se, ols2.se, ols3.se, ols4.se, iv2sls_5.se, iv2sls_6.se, iv2sls_7.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
 ```
 
-# Table 3
+# T3
+
 ```{r}
+
 t3_m1formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'),response = 'ANY_PRIO')
 
 t3_m1 = lm(formula = t3_m1formula, data = master_df)
@@ -294,6 +296,7 @@ stargazer(iv2sls_1,iv2sls_2,iv2sls_3,iv2sls_4,iv2sls_5,se = list(iv2sls_1.se, iv
 
 
 # T6: Economic shocks on the onset of civil conflict
+
 ```{r}
 # IV 2SLS 1:
 # stage 1:
@@ -320,7 +323,7 @@ stargazer(iv2sls_1,iv2sls_2,header = F, type = 'text', omit = c('Iccyear','Iccod
 ```
 
 
-# Tc1
+# TC1: Summary Statistcs (Appendix)
 ```{r}
 tablec1 = master_df %>% 
   group_by(Location) %>% 
@@ -334,6 +337,7 @@ tablec1 = master_df %>%
 
 tablec1 %>% knitr::kable(col.names = c('Country', 'Total Years', "Years of Civil Conﬂict ≥25 Deaths (PRIO/Uppsala)", "Years of Civil Conﬂict ≥1,000 Deaths (PRIO/Uppsala)"))
 ```
+
 # T1
 ```{r}
 master_df  %>%
@@ -415,7 +419,7 @@ range(subset_iv[,'p.value.GDP_G_L'])
 # Anderson-Rubin interval for the effect of Lagged GDP Growth (%) on Civil Conflict (# of conflicts >= 25 deaths)
 
 # do a sequence of hypothesis tests
-get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
+get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.01)){
   .data  = master_df
 
   if (with_cov == F) {
