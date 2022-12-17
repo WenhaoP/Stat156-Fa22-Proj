@@ -1,0 +1,83 @@
+---------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  \\Client\C$\Users\pan20\OneDrive\Documents\Berkeley Struggle\Fall 2022\STAT 156\project\Stat156-Fa22-Proj\original_data\re
+> p_results.log
+  log type:  text
+ opened on:  13 Dec 2022, 16:06:11
+
+. use mss_repdata.dta;
+file mss_repdata.dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. cd Data
+\\Client\C$\Users\pan20\OneDrive\Documents\Berkeley Struggle\Fall 2022\STAT 156\project\Stat156-Fa22-Proj\original_data\Data
+
+. do "\\Client\C$\Users\pan20\OneDrive\Documents\Berkeley Struggle\Fall 2022\STAT 156\project\Stat156-Fa22-Proj\original_data\Data\mss_
+> rep_results.do"
+
+. clear
+
+. 
+. set mem 150m
+set memory ignored.
+    Memory no longer needs to be set in modern Statas; memory adjustments are performed on the fly automatically.
+
+. 
+. set more off
+
+. 
+. set matsize 775
+set matsize ignored.
+    Matrix sizes are no longer limited by c(matsize) in modern Statas.  Matrix sizes are now limited by flavor of Stata.  See limits
+    for more details.
+
+. 
+. #delimit ;
+delimiter now ;
+. log using rep_results.log, replace;
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. do "\\Client\C$\Users\pan20\OneDrive\Documents\Berkeley Struggle\Fall 2022\STAT 156\project\Stat156-Fa22-Proj\original_data\Data\mss_
+> rep_results.do"
+
+. clear
+
+. 
+. set mem 150m
+set memory ignored.
+    Memory no longer needs to be set in modern Statas; memory adjustments are performed on the fly automatically.
+
+. 
+. set more off
+
+. 
+. set matsize 775
+set matsize ignored.
+    Matrix sizes are no longer limited by c(matsize) in modern Statas.  Matrix sizes are now limited by flavor of Stata.  See limits
+    for more details.
+
+. 
+. #delimit ;
+delimiter now ;
+. log using rep_results.log, replace;
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. restart
+command restart is unrecognized
+r(199);
+
+. exit, clear

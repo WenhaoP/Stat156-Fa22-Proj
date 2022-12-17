@@ -1,0 +1,986 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Code Appendix},
+  pdfauthor={Sam Tan, Wenhao Pan},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Code Appendix}
+\author{Sam Tan, Wenhao Pan}
+\date{2022-12-16}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{eval =} \ConstantTok{FALSE}\NormalTok{)}
+\CommentTok{\# install.packages(\textquotesingle{}skimr\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}AER\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}fastDummies\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}sandwich\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}stargazer\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}tidyverse\textquotesingle{})}
+\CommentTok{\# install.packages(\textquotesingle{}janitor\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(skimr)}
+\FunctionTok{library}\NormalTok{(AER) }\CommentTok{\# AER::ivreg()}
+\FunctionTok{library}\NormalTok{(fastDummies) }\CommentTok{\# dummycols()}
+\FunctionTok{library}\NormalTok{(sandwich) }
+\FunctionTok{library}\NormalTok{(stargazer)}
+\FunctionTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-cleaning}{%
+\section{Data Cleaning}\label{data-cleaning}}
+
+\hypertarget{clean-the-rainfall-data}{%
+\subsection{Clean the rainfall data}\label{clean-the-rainfall-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages(\textquotesingle{}tidync\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(tidync)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\NormalTok{rain }\OtherTok{=} \FunctionTok{tidync}\NormalTok{(}\StringTok{\textquotesingle{}precip.mon.mean.nc\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{hyper\_tibble}\NormalTok{()}
+
+\DocumentationTok{\#\#\# filter nodes in Africa }\AlertTok{\#\#\#}
+\NormalTok{rain }\OtherTok{=}\NormalTok{ rain }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(lat }\SpecialCharTok{\textgreater{}=} \SpecialCharTok{{-}}\DecValTok{40} \SpecialCharTok{\&}\NormalTok{ lat }\SpecialCharTok{\textless{}=} \DecValTok{40}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(lon }\SpecialCharTok{\textgreater{}=} \DecValTok{330} \SpecialCharTok{|}\NormalTok{ (lon }\SpecialCharTok{\textgreater{}=} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ lon }\SpecialCharTok{\textless{}=} \DecValTok{60}\NormalTok{)) }
+
+\DocumentationTok{\#\#\# extract year and month }\AlertTok{\#\#\#}
+\NormalTok{rain}\SpecialCharTok{$}\NormalTok{time }\OtherTok{=}\NormalTok{ rain}\SpecialCharTok{$}\NormalTok{time }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{time)}
+\NormalTok{rain}\SpecialCharTok{$}\NormalTok{date }\OtherTok{=} \FunctionTok{as.Date}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{time, }\AttributeTok{origin =} \StringTok{\textquotesingle{}1979{-}01{-}01\textquotesingle{}}\NormalTok{)}
+\NormalTok{rain}\SpecialCharTok{$}\NormalTok{year }\OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{format}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{date, }\StringTok{\textquotesingle{}\%Y\textquotesingle{}}\NormalTok{))}
+\NormalTok{rain }\OtherTok{=}\NormalTok{ rain }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textless{}=} \DecValTok{2000}\NormalTok{)}
+
+\NormalTok{rain}\SpecialCharTok{$}\NormalTok{month }\OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{format}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{date, }\StringTok{\textquotesingle{}\%m\textquotesingle{}}\NormalTok{))}
+\NormalTok{rain }\OtherTok{=}\NormalTok{ rain }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}time\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}date\textquotesingle{}}\NormalTok{))}
+\NormalTok{rain}\SpecialCharTok{$}\NormalTok{pos }\OtherTok{=} \FunctionTok{paste}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{lon), }\FunctionTok{as.character}\NormalTok{(rain}\SpecialCharTok{$}\NormalTok{lat))}
+
+\NormalTok{node }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}mss\_rainfall.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{node }\OtherTok{=}\NormalTok{ node }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Lon\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}Longitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lat\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}Latitude\textquotesingle{}}\NormalTok{)}
+
+\DocumentationTok{\#\#\# clean the node data }\AlertTok{\#\#\#}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(node)) \{}
+  \CommentTok{\# clean longitude}
+\NormalTok{  lon }\OtherTok{=}\NormalTok{ node[i,}\StringTok{\textquotesingle{}Lon\textquotesingle{}}\NormalTok{]}
+\NormalTok{  direction }\OtherTok{=} \FunctionTok{str\_extract}\NormalTok{(lon, }\StringTok{\textquotesingle{}[EW]\textquotesingle{}}\NormalTok{)}
+\NormalTok{  val }\OtherTok{=} \FunctionTok{as.double}\NormalTok{(}\FunctionTok{str\_extract}\NormalTok{(lon, }\StringTok{\textquotesingle{}\^{}(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+)\textquotesingle{}}\NormalTok{))}
+  \ControlFlowTok{if}\NormalTok{ (direction }\SpecialCharTok{==} \StringTok{\textquotesingle{}E\textquotesingle{}}\NormalTok{)\{}
+\NormalTok{    node[i, }\StringTok{\textquotesingle{}Lon\textquotesingle{}}\NormalTok{] }\OtherTok{=}\NormalTok{ val}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    node[i, }\StringTok{\textquotesingle{}Lon\textquotesingle{}}\NormalTok{] }\OtherTok{=} \DecValTok{360} \SpecialCharTok{{-}}\NormalTok{ val}
+\NormalTok{  \}}
+  
+  \CommentTok{\# clean latitude}
+\NormalTok{  lat }\OtherTok{=}\NormalTok{ node[i, }\StringTok{\textquotesingle{}Lat\textquotesingle{}}\NormalTok{]}
+\NormalTok{  direction }\OtherTok{=} \FunctionTok{str\_extract}\NormalTok{(lat, }\StringTok{\textquotesingle{}[NS]\textquotesingle{}}\NormalTok{)}
+\NormalTok{  val }\OtherTok{=} \FunctionTok{as.double}\NormalTok{(}\FunctionTok{str\_extract}\NormalTok{(lat, }\StringTok{\textquotesingle{}\^{}(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+)\textquotesingle{}}\NormalTok{))}
+  \ControlFlowTok{if}\NormalTok{ (direction }\SpecialCharTok{==} \StringTok{\textquotesingle{}N\textquotesingle{}}\NormalTok{)\{}
+\NormalTok{    node[i, }\StringTok{\textquotesingle{}Lat\textquotesingle{}}\NormalTok{] }\OtherTok{=}\NormalTok{ val}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    node[i, }\StringTok{\textquotesingle{}Lat\textquotesingle{}}\NormalTok{] }\OtherTok{=} \SpecialCharTok{{-}}\NormalTok{val}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\DocumentationTok{\#\#\# integrate the rainfall and node data }\AlertTok{\#\#\#}
+\NormalTok{country\_list }\OtherTok{=} \FunctionTok{unique}\NormalTok{(node}\SpecialCharTok{$}\NormalTok{Country)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(country\_list))\{}
+\NormalTok{  country }\OtherTok{=}\NormalTok{ country\_list[i]}
+\NormalTok{  country\_node }\OtherTok{=}\NormalTok{ node }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(Country }\SpecialCharTok{==}\NormalTok{ country)}
+\NormalTok{  node\_pos }\OtherTok{=} \FunctionTok{paste}\NormalTok{(country\_node}\SpecialCharTok{$}\NormalTok{Lon, country\_node}\SpecialCharTok{$}\NormalTok{Lat)}
+\NormalTok{  country\_rain }\OtherTok{=}\NormalTok{ rain[rain}\SpecialCharTok{$}\NormalTok{pos }\SpecialCharTok{\%in\%}\NormalTok{ node\_pos,]}
+\NormalTok{  country\_rain}\SpecialCharTok{$}\NormalTok{country }\OtherTok{=}\NormalTok{ country}
+\NormalTok{  country\_rain }\OtherTok{=}\NormalTok{ country\_rain }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}lon\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}lat\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}pos\textquotesingle{}}\NormalTok{))}
+  
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)\{}
+\NormalTok{    final }\OtherTok{=}\NormalTok{ country\_rain}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    final }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(final, country\_rain)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\DocumentationTok{\#\#\# recover GPCP }\AlertTok{\#\#\#}
+\NormalTok{leap\_years }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}1980\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1984\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1988\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1992\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1996\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2000\textquotesingle{}}\NormalTok{)}
+\NormalTok{month\_total }\OtherTok{=} \FunctionTok{numeric}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(final))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(final))\{}
+\NormalTok{  obs }\OtherTok{=}\NormalTok{ final[i,]}
+\NormalTok{  year }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{year}
+\NormalTok{  month }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{month}
+\NormalTok{  precip }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{precip}
+  
+  \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{)\{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ ((month }\SpecialCharTok{==} \StringTok{\textquotesingle{}2\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\&}\NormalTok{ (year }\SpecialCharTok{\%in\%}\NormalTok{ leap\_years)) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{29}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}2\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{28}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}3\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}4\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{30}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}5\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}6\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{30}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}7\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}8\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}9\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{30}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}10\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (month }\SpecialCharTok{==} \StringTok{\textquotesingle{}11\textquotesingle{}}\NormalTok{) \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{30}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    month\_total[i] }\OtherTok{=}\NormalTok{ precip }\SpecialCharTok{*} \DecValTok{31}
+\NormalTok{  \}}
+\NormalTok{\}}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{month\_total }\OtherTok{=}\NormalTok{ month\_total}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}precip\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}month\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(country, year) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{GPCP =} \FunctionTok{sum}\NormalTok{(month\_total))}
+
+\NormalTok{n\_nodes }\OtherTok{=}\NormalTok{ node }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Country) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{())}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(final))\{}
+\NormalTok{  obs }\OtherTok{=}\NormalTok{ final[i, ]}
+\NormalTok{  country }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{country}
+\NormalTok{  GPCP }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{GPCP}
+\NormalTok{  n }\OtherTok{=}\NormalTok{ n\_nodes[n\_nodes}\SpecialCharTok{$}\NormalTok{Country }\SpecialCharTok{==}\NormalTok{ country,]}\SpecialCharTok{$}\NormalTok{n}
+\NormalTok{  final[i,}\StringTok{\textquotesingle{}GPCP\textquotesingle{}}\NormalTok{] }\OtherTok{=}\NormalTok{ GPCP }\SpecialCharTok{/}\NormalTok{ n}
+\NormalTok{\}}
+
+\CommentTok{\# adjust measures for Ethiopia}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{((country }\SpecialCharTok{==} \StringTok{\textquotesingle{}Ethiopia, pre 1993\textquotesingle{}} \SpecialCharTok{\&}\NormalTok{ year }\SpecialCharTok{\textgreater{}=} \StringTok{\textquotesingle{}1993\textquotesingle{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (country }\SpecialCharTok{==} \StringTok{\textquotesingle{}Ethiopia, post 1993\textquotesingle{}} \SpecialCharTok{\&}\NormalTok{ year }\SpecialCharTok{\textless{}} \StringTok{\textquotesingle{}1993\textquotesingle{}}\NormalTok{)))}
+\NormalTok{final[}\FunctionTok{str\_detect}\NormalTok{(final}\SpecialCharTok{$}\NormalTok{country, }\StringTok{\textquotesingle{}Ethiopia\textquotesingle{}}\NormalTok{),]}\SpecialCharTok{$}\NormalTok{country }\OtherTok{=} \StringTok{\textquotesingle{}Ethiopia\textquotesingle{}}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(country, year)}
+
+\DocumentationTok{\#\#\# recover features derived from GPCP }\AlertTok{\#\#\#}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(country) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{GPCP\_L =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{lag}\NormalTok{(GPCP, }\AttributeTok{n=}\DecValTok{1}\NormalTok{, }\AttributeTok{default=}\ConstantTok{NA}\NormalTok{),}
+    \AttributeTok{GPCP\_L2 =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{lag}\NormalTok{(GPCP, }\AttributeTok{n=}\DecValTok{2}\NormalTok{, }\AttributeTok{default=}\ConstantTok{NA}\NormalTok{),}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{GPCP\_G =}\NormalTok{ (GPCP }\SpecialCharTok{{-}}\NormalTok{ GPCP\_L) }\SpecialCharTok{/}\NormalTok{ GPCP\_L,}
+    \AttributeTok{GPCP\_G\_L =}\NormalTok{ (GPCP\_L }\SpecialCharTok{{-}}\NormalTok{ GPCP\_L2) }\SpecialCharTok{/}\NormalTok{ GPCP\_L2,}
+    \AttributeTok{GPCP\_G\_FL =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{lead}\NormalTok{(GPCP\_G, }\AttributeTok{n=}\DecValTok{1}\NormalTok{, }\AttributeTok{default=}\ConstantTok{NA}\NormalTok{)}
+\NormalTok{  )}
+
+\DocumentationTok{\#\#\# assign COW country code }\AlertTok{\#\#\#}
+\NormalTok{COW\_code }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}COW{-}country{-}codes.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{country\_list }\OtherTok{=} \FunctionTok{unique}\NormalTok{(final}\SpecialCharTok{$}\NormalTok{country)}
+\NormalTok{sub }\OtherTok{=}\NormalTok{ COW\_code[COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{\%in\%}\NormalTok{ country\_list,]}
+\NormalTok{sub }\OtherTok{=}\NormalTok{ sub[}\SpecialCharTok{!}\FunctionTok{duplicated}\NormalTok{(sub),]}
+\NormalTok{sub[}\FunctionTok{nrow}\NormalTok{(sub)}\SpecialCharTok{+}\DecValTok{1}\NormalTok{,] }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}CDI\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}437\textquotesingle{}}\NormalTok{,}\StringTok{"Cote d\textquotesingle{}Ivoire"}\NormalTok{)}
+\NormalTok{sub[}\FunctionTok{nrow}\NormalTok{(sub)}\SpecialCharTok{+}\DecValTok{1}\NormalTok{,] }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}CON\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}484\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Congo, Brazzaville\textquotesingle{}}\NormalTok{)}
+\NormalTok{sub[}\FunctionTok{nrow}\NormalTok{(sub)}\SpecialCharTok{+}\DecValTok{1}\NormalTok{,] }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}DRC\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}490\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Congo, Kinshasa\textquotesingle{}}\NormalTok{)}
+\NormalTok{COW\_code }\OtherTok{=}\NormalTok{ sub }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(CCode)}
+
+\NormalTok{code }\OtherTok{=} \FunctionTok{integer}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(final))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(final))\{}
+\NormalTok{  obs }\OtherTok{=}\NormalTok{ final[i,]}
+\NormalTok{  country }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{country}
+\NormalTok{  code[i] }\OtherTok{=}\NormalTok{ COW\_code[COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{==}\NormalTok{ country,]}\SpecialCharTok{$}\NormalTok{CCode}
+\NormalTok{\}}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{ccode }\OtherTok{=}\NormalTok{ code}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{clean-the-fearon-and-laitin-2003-data}{%
+\subsection{Clean the Fearon and Laitin (2003)
+data}\label{clean-the-fearon-and-laitin-2003-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages(\textquotesingle{}haven\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(haven)}
+\NormalTok{FL }\OtherTok{=} \FunctionTok{read\_dta}\NormalTok{(}\StringTok{\textquotesingle{}FL.dta\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{clean-gdngd-data}{%
+\subsection{Clean GDNGD data}\label{clean-gdngd-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GDNGD }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}GDNGD.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\OtherTok{=} \FunctionTok{replace}\NormalTok{(COW\_code}\SpecialCharTok{$}\NormalTok{StateNme, COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{==} \StringTok{\textquotesingle{}Congo, Brazzaville\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Congo, Rep.\textquotesingle{}}\NormalTok{)}
+\NormalTok{COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\OtherTok{=} \FunctionTok{replace}\NormalTok{(COW\_code}\SpecialCharTok{$}\NormalTok{StateNme, COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{==} \StringTok{\textquotesingle{}Congo, Kinshasa\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Congo, Dem. Rep.\textquotesingle{}}\NormalTok{)}
+\NormalTok{COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\OtherTok{=} \FunctionTok{replace}\NormalTok{(COW\_code}\SpecialCharTok{$}\NormalTok{StateNme, COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{==} \StringTok{\textquotesingle{}Gambia\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Gambia, The\textquotesingle{}}\NormalTok{)}
+\NormalTok{code }\OtherTok{=} \FunctionTok{integer}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(GDNGD))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(GDNGD))\{}
+\NormalTok{  obs }\OtherTok{=}\NormalTok{ GDNGD[i,]}
+\NormalTok{  country }\OtherTok{=}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{Country.Name}
+  
+  \ControlFlowTok{if}\NormalTok{ (country }\SpecialCharTok{\%in\%}\NormalTok{ COW\_code}\SpecialCharTok{$}\NormalTok{StateNme)\{}
+\NormalTok{    code[i] }\OtherTok{=}\NormalTok{ COW\_code[COW\_code}\SpecialCharTok{$}\NormalTok{StateNme }\SpecialCharTok{==}\NormalTok{ country,]}\SpecialCharTok{$}\NormalTok{CCode}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    code[i] }\OtherTok{=} \StringTok{\textquotesingle{}NA\textquotesingle{}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\NormalTok{GDNGD}\SpecialCharTok{$}\NormalTok{ccode }\OtherTok{=}\NormalTok{ code}
+\NormalTok{GDNGD }\OtherTok{=}\NormalTok{ GDNGD }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(ccode }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)}
+\NormalTok{GDNGD }\OtherTok{=} \FunctionTok{replace}\NormalTok{(GDNGD, GDNGD}\SpecialCharTok{==}\StringTok{\textquotesingle{}..\textquotesingle{}}\NormalTok{,}\ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{integrate-all-data}{%
+\subsection{Integrate all data}\label{integrate-all-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# bring in GDNGD }\AlertTok{\#\#\#}
+\NormalTok{TOT }\OtherTok{=} \FunctionTok{numeric}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(final))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(final)) \{}
+\NormalTok{  obs }\OtherTok{=}\NormalTok{ final[i,]}
+  \ControlFlowTok{if}\NormalTok{ (obs}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==} \StringTok{\textquotesingle{}2000\textquotesingle{}}\NormalTok{)\{}
+\NormalTok{    TOT[i] }\OtherTok{=} \ConstantTok{NA}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    TOT[i] }\OtherTok{=}\NormalTok{ GDNGD[GDNGD}\SpecialCharTok{$}\NormalTok{ccode }\SpecialCharTok{==}\NormalTok{ obs}\SpecialCharTok{$}\NormalTok{ccode, }\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{,obs}\SpecialCharTok{$}\NormalTok{year,}\AttributeTok{sep=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)]}
+\NormalTok{  \}}
+\NormalTok{\}}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{TOT\_100 }\OtherTok{=} \FunctionTok{as.double}\NormalTok{(TOT)}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(country) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{TOT\_100\_L =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{lag}\NormalTok{(TOT\_100, }\AttributeTok{n=}\DecValTok{1}\NormalTok{, }\AttributeTok{default=}\ConstantTok{NA}\NormalTok{),}
+\NormalTok{  )}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{TOT\_100\_G }\OtherTok{=}\NormalTok{ (final}\SpecialCharTok{$}\NormalTok{TOT\_100 }\SpecialCharTok{{-}}\NormalTok{ final}\SpecialCharTok{$}\NormalTok{TOT\_100\_L) }\SpecialCharTok{/}\NormalTok{ final}\SpecialCharTok{$}\NormalTok{TOT\_100\_L}
+
+\DocumentationTok{\#\#\# bring in the Fearon and Laitin (2003) }\AlertTok{\#\#\#}
+\NormalTok{final }\OtherTok{=} \FunctionTok{merge}\NormalTok{(final, FL, }\AttributeTok{by=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}ccode\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}year\textquotesingle{}}\NormalTok{))}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(ccode, year)}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{GDP\_G }\OtherTok{=}\NormalTok{ (final}\SpecialCharTok{$}\NormalTok{gdpen }\SpecialCharTok{{-}}\NormalTok{ final}\SpecialCharTok{$}\NormalTok{gdpenl) }\SpecialCharTok{/}\NormalTok{ final}\SpecialCharTok{$}\NormalTok{gdpenl}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(ccode) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{GDP\_G\_L =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{lag}\NormalTok{(GDP\_G, }\AttributeTok{n=}\DecValTok{1}\NormalTok{, }\AttributeTok{default=}\ConstantTok{NA}\NormalTok{),}
+\NormalTok{  )}
+\NormalTok{final}\SpecialCharTok{$}\NormalTok{POLITY2L\_6 }\OtherTok{=} \FunctionTok{as.integer}\NormalTok{(final}\SpecialCharTok{$}\NormalTok{polity2l }\SpecialCharTok{\textgreater{}=} \DecValTok{6}\NormalTok{)}
+\NormalTok{final }\OtherTok{=}\NormalTok{ final }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(ccode) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Y\_0 =} \FunctionTok{first}\NormalTok{(gdpen))}
+\FunctionTok{write.csv}\NormalTok{(final, }\StringTok{\textquotesingle{}clean\_data.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{civil-conflict}{%
+\subsection{Civil Conflict}\label{civil-conflict}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{main }\OtherTok{=}\NormalTok{ readxl}\SpecialCharTok{::}\FunctionTok{read\_excel}\NormalTok{(}\StringTok{"ucdp{-}prio{-}acd{-}3{-}2005.xls"}\NormalTok{)}
+\NormalTok{africa }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}COW\_code.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{monadic }\OtherTok{=}\NormalTok{ main }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(Type, Intensity, YEAR, COW\_location, Location) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =} \FunctionTok{c}\NormalTok{(YEAR,COW\_location), }\AttributeTok{names\_from =}\NormalTok{ Type,}\AttributeTok{values\_from =}\NormalTok{ Intensity, }\AttributeTok{values\_fn =}\NormalTok{ max, }\AttributeTok{names\_prefix =} \StringTok{\textquotesingle{}Type\textquotesingle{}}\NormalTok{, }\AttributeTok{values\_fill =} \DecValTok{0}\NormalTok{) }
+
+\NormalTok{monadic\_africa\_conflict }\OtherTok{=}\NormalTok{ monadic }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(COW\_location }\SpecialCharTok{\%in\%}\NormalTok{ africa}\SpecialCharTok{$}\NormalTok{CCode) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{COW\_location =} \FunctionTok{as.numeric}\NormalTok{(COW\_location))}
+  
+\NormalTok{monadic\_africa\_empty }\OtherTok{=} \FunctionTok{map\_df}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(africa), }\ControlFlowTok{function}\NormalTok{(i)\{}
+  \CommentTok{\# For Namibia, only 9 years are observed (1990 {-} 1999), instead of all years. Source: Armed Conflict Dataset Codebook, Version 3{-}2005, page 24}
+  \ControlFlowTok{if}\NormalTok{ (africa}\SpecialCharTok{$}\NormalTok{StateNme[i] }\SpecialCharTok{==} \StringTok{\textquotesingle{}Namibia\textquotesingle{}}\NormalTok{) \{}
+    \FunctionTok{bind\_cols}\NormalTok{(}\AttributeTok{Location =}\NormalTok{ africa}\SpecialCharTok{$}\NormalTok{StateNme[i], }
+        \AttributeTok{COW\_location =}\NormalTok{ africa}\SpecialCharTok{$}\NormalTok{CCode[i], }
+        \AttributeTok{YEAR =} \DecValTok{1990}\SpecialCharTok{:}\DecValTok{1999}\NormalTok{)  }
+\NormalTok{  \}}
+  \ControlFlowTok{else}\NormalTok{\{}
+    \FunctionTok{bind\_cols}\NormalTok{(}\AttributeTok{Location =}\NormalTok{ africa}\SpecialCharTok{$}\NormalTok{StateNme[i], }
+        \AttributeTok{COW\_location =}\NormalTok{ africa}\SpecialCharTok{$}\NormalTok{CCode[i], }
+        \AttributeTok{YEAR =} \DecValTok{1980}\SpecialCharTok{:}\DecValTok{2000}\NormalTok{) }\CommentTok{\# include 1980 and 2000 for the onset and offset variable}
+\NormalTok{    \}}
+\NormalTok{\})}
+
+
+\NormalTok{monadic\_africa\_all }\OtherTok{=} \FunctionTok{left\_join}\NormalTok{(}
+\NormalTok{  monadic\_africa\_empty, }
+\NormalTok{  monadic\_africa\_conflict, }
+  \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}COW\_location\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}YEAR\textquotesingle{}}\NormalTok{))  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate\_if}\NormalTok{(is.numeric,coalesce,}\DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# The default is peace. No conflict.}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{WAR\_PRIO =}\NormalTok{ ((Type3 }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type4 }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)), }
+         \AttributeTok{WAR\_PRIO\_ON =}\NormalTok{ ((}\FunctionTok{lag}\NormalTok{(WAR\_PRIO }\SpecialCharTok{==}\NormalTok{ F, }\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (WAR\_PRIO }\SpecialCharTok{==}\NormalTok{ T))),}
+         \AttributeTok{WAR\_PRIO\_OFF =}\NormalTok{ ((}\FunctionTok{lag}\NormalTok{(WAR\_PRIO }\SpecialCharTok{==}\NormalTok{ T, }\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (WAR\_PRIO }\SpecialCharTok{==}\NormalTok{ F))), }
+         \AttributeTok{MINOR\_PRIO =}\NormalTok{ ((Type3 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type3 }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type4 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (Type4 }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)), }
+         \AttributeTok{MINOR\_PRIO\_ON =}\NormalTok{ ((}\FunctionTok{lag}\NormalTok{(MINOR\_PRIO }\SpecialCharTok{==}\NormalTok{ F, }\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (MINOR\_PRIO }\SpecialCharTok{==}\NormalTok{ T))), }
+         \AttributeTok{MINOR\_PRIO\_OFF =}\NormalTok{ ((}\FunctionTok{lag}\NormalTok{(MINOR\_PRIO }\SpecialCharTok{==}\NormalTok{ T, }\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (MINOR\_PRIO }\SpecialCharTok{==}\NormalTok{ F))), }
+         \AttributeTok{ANY\_PRIO =}\NormalTok{ ((Type3 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type3 }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type3 }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)}\SpecialCharTok{|}\NormalTok{(Type4 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (Type4 }\SpecialCharTok{==} \DecValTok{2}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (Type4 }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)), }
+         \AttributeTok{ANY\_PRIO\_ON =}\NormalTok{ (}\FunctionTok{lag}\NormalTok{(ANY\_PRIO }\SpecialCharTok{==}\NormalTok{ F,}\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (ANY\_PRIO }\SpecialCharTok{==}\NormalTok{ T)),}
+         \AttributeTok{ANY\_PRIO\_OFF =}\NormalTok{ ((}\FunctionTok{lag}\NormalTok{(ANY\_PRIO }\SpecialCharTok{==}\NormalTok{ T, }\AttributeTok{default =}\NormalTok{ F) }\SpecialCharTok{\&}\NormalTok{ (ANY\_PRIO }\SpecialCharTok{==}\NormalTok{ F)))) }
+
+\NormalTok{monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{ANY\_PRIO\_ON[}\FunctionTok{lag}\NormalTok{(monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{ANY\_PRIO)] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\NormalTok{monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{ANY\_PRIO\_OFF[}\SpecialCharTok{!}\FunctionTok{lag}\NormalTok{(monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{ANY\_PRIO)] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\NormalTok{monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{WAR\_PRIO\_ON[}\FunctionTok{lag}\NormalTok{(monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{WAR\_PRIO)] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\NormalTok{monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{WAR\_PRIO\_OFF[}\SpecialCharTok{!}\FunctionTok{lag}\NormalTok{(monadic\_africa\_all}\SpecialCharTok{$}\NormalTok{WAR\_PRIO)] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+
+\NormalTok{monadic\_africa\_all }\OtherTok{=}\NormalTok{  monadic\_africa\_all }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{((YEAR }\SpecialCharTok{\textgreater{}=} \DecValTok{1981}\NormalTok{) }\SpecialCharTok{\&}\NormalTok{ (YEAR }\SpecialCharTok{\textless{}=} \DecValTok{1999}\NormalTok{))}
+
+\CommentTok{\# Adding fixed effects and country specific effects}
+\NormalTok{clean\_df }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}clean\_data.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{merged\_df }\OtherTok{=} \FunctionTok{inner\_join}\NormalTok{(}\AttributeTok{x =}\NormalTok{ clean\_df, }\AttributeTok{y =}\NormalTok{ monadic\_africa\_all,}\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}year\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}YEAR\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ccode\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}COW\_location\textquotesingle{}}\NormalTok{))}
+
+\CommentTok{\# fixed effect for each country (in dummies)}
+\NormalTok{Iccode }\OtherTok{=}\NormalTok{ fastDummies}\SpecialCharTok{::}\FunctionTok{dummy\_cols}\NormalTok{(}\AttributeTok{.data =}\NormalTok{ merged\_df}\SpecialCharTok{$}\NormalTok{ccode,}\AttributeTok{remove\_selected\_columns =}\NormalTok{ T,}\AttributeTok{remove\_first\_dummy =}\NormalTok{ T) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tibble}\NormalTok{()}
+
+\CommentTok{\# extract the years for each country in dummies form}
+\NormalTok{Iccyear }\OtherTok{=}\NormalTok{ Iccode }\SpecialCharTok{*}\NormalTok{ (merged\_df}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{{-}} \DecValTok{1978}\NormalTok{)}
+
+\CommentTok{\# merge the dummies to the main dataframe}
+\FunctionTok{names}\NormalTok{(Iccode) }\OtherTok{=} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Iccode"}\NormalTok{, }\FunctionTok{names}\NormalTok{(Iccode))}
+\FunctionTok{names}\NormalTok{(Iccyear) }\OtherTok{=} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Iccyear"}\NormalTok{, }\FunctionTok{names}\NormalTok{(Iccyear))}
+\NormalTok{Iccyear }\OtherTok{=}\NormalTok{ Iccyear }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rowid\_to\_column}\NormalTok{(}\StringTok{"ID"}\NormalTok{)}
+\NormalTok{Iccode }\OtherTok{=}\NormalTok{ Iccode }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rowid\_to\_column}\NormalTok{(}\StringTok{"ID"}\NormalTok{)}
+\NormalTok{merged\_df }\OtherTok{=}\NormalTok{ merged\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rowid\_to\_column}\NormalTok{(}\StringTok{"ID"}\NormalTok{)}
+\NormalTok{dummies\_df }\OtherTok{=} \FunctionTok{left\_join}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Iccode, }\AttributeTok{y =}\NormalTok{ Iccyear, }\AttributeTok{by =} \StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{)}
+\NormalTok{master\_df }\OtherTok{=} \FunctionTok{left\_join}\NormalTok{(merged\_df,dummies\_df,}\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}ID\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{))  }
+\NormalTok{master\_df }\OtherTok{=}\NormalTok{ master\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(GDP\_G\_L)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(GDP\_G))) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{year\_actual =}\NormalTok{ year, }\AttributeTok{year =}\NormalTok{ year\_actual }\SpecialCharTok{{-}} \DecValTok{1978}\NormalTok{)}
+
+\CommentTok{\# covariates}
+\NormalTok{X }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Y\_0\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}polity2l\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}ethfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}relfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Oil\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lmtnest\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lpopl1\textquotesingle{}}\NormalTok{)}
+\NormalTok{X\_log }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}log\_Y\_0\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}polity2l\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}ethfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}relfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Oil\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lmtnest\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lpopl1\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{write.csv}\NormalTok{(}\AttributeTok{x =}\NormalTok{ master\_df, }\AttributeTok{file =} \StringTok{\textquotesingle{}master\_df.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{analysis}{%
+\section{Analysis}\label{analysis}}
+
+\hypertarget{t2}{%
+\subsection{T2}\label{t2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# model 1: Economic Growth Rate \textasciitilde{} Growth in rainfall at time t + Growth in rainfall at t {-} 1. }
+\NormalTok{m1 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ GDP\_G }\SpecialCharTok{\textasciitilde{}}\NormalTok{ GPCP\_G }\SpecialCharTok{+}\NormalTok{ GPCP\_G\_L, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{m1.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(m1, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+\CommentTok{\# model 2: Economic Growth Rate \textasciitilde{} Growth in rainfall, t +  Growth in rainfall, t {-} 1 + covariates}
+
+
+\CommentTok{\# model formula for m2}
+\NormalTok{m2formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{,X),}\AttributeTok{response =} \StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{)}
+\NormalTok{m2 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m2formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{m2.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(m2, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+\CommentTok{\# m3}
+\NormalTok{m3formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccode|Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{m3 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m3formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{m3.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(m3, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+\CommentTok{\# m4}
+\NormalTok{m4formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccode|Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{,}\StringTok{"GPCP\_G\_FL"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{m4 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m4formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{m4.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(m4, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+
+\CommentTok{\# m5}
+\NormalTok{m5formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccode|Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}TOT\_100\_G\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{m5 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m5formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{m5.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(m5, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+\CommentTok{\# table 2}
+\FunctionTok{stargazer}\NormalTok{(m1,m2,m3,m4,m5,}\AttributeTok{se=}\FunctionTok{list}\NormalTok{(m1.se,m2.se,m3.se,m4.se,m5.se),}\AttributeTok{header =}\NormalTok{ F, }\AttributeTok{type =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{omit =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Iccode\textquotesingle{}}\NormalTok{), }\AttributeTok{omit.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Country{-}speciﬁc time trend"}\NormalTok{,}\StringTok{"Country fixed effect"}\NormalTok{),}\AttributeTok{column.label =} \StringTok{"Economic Growth Rate, t"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{t4-ols-versus-2sls}{%
+\subsection{T4: OLS VERSUS 2SLS}\label{t4-ols-versus-2sls}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rformula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(X,}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}year\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+\NormalTok{probit\_model }\OtherTok{=} \FunctionTok{glm}\NormalTok{(rformula, }\AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"probit"}\NormalTok{), }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{probit.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(probit\_model, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse1 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(probit\_model}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\NormalTok{rformula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(X,}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}year\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+\NormalTok{ols2 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(rformula2, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{ols2.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(ols2, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse2 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(ols2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+
+\CommentTok{\#master\_df = master\_df \%\textgreater{}\% mutate(log\_Y\_0 = log(Y\_0))}
+
+
+\NormalTok{rformula3 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),X,}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+\NormalTok{ols3 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(rformula3, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{ols3.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(ols3, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse3 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(ols3}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+
+\CommentTok{\# OLS 4:}
+\NormalTok{rformula4 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+\NormalTok{ols4 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(rformula4, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{ols4.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(ols4, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse4 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(ols4}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+
+\CommentTok{\# IV 2SLS 5:}
+\CommentTok{\# stage 1:}
+\NormalTok{m5formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{,X))}
+\CommentTok{\# stage 2: }
+\NormalTok{m5formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),X,}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_5 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m5formula2, }\AttributeTok{instruments =}\NormalTok{ m5formula1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_5.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_5, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse5 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_5}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# IV 2SLS 6:}
+\CommentTok{\# stage 1:}
+\NormalTok{m6formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{, }\StringTok{"GPCP\_G\_L"}\NormalTok{))}
+\CommentTok{\# stage 2: }
+\NormalTok{m6formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+\CommentTok{\#m5\_2 = lm(m5formula2, data = master\_df)}
+
+\NormalTok{iv2sls\_6 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m6formula2, }\AttributeTok{instruments =}\NormalTok{ m6formula1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_6.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_6, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse6 }\OtherTok{=} \FunctionTok{round}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_6}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)),}\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# IV 2SLS 7:}
+\CommentTok{\# stage 1:}
+\NormalTok{m7formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{, }\StringTok{"GPCP\_G\_L"}\NormalTok{))}
+\CommentTok{\# stage 2: }
+\NormalTok{m7formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}WAR\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_7 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m7formula2, }\AttributeTok{instruments =}\NormalTok{ m7formula1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_7.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_7, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse7 }\OtherTok{=} \FunctionTok{round}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_7}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)),}\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# Summary table 4:}
+\FunctionTok{stargazer}\NormalTok{(probit\_model,ols2,ols3,ols4,iv2sls\_5,iv2sls\_6,iv2sls\_7,}\AttributeTok{se =} \FunctionTok{list}\NormalTok{(probit.se, ols2.se, ols3.se, ols4.se, iv2sls\_5.se, iv2sls\_6.se, iv2sls\_7.se), }\AttributeTok{header =}\NormalTok{ F, }\AttributeTok{type =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{omit =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Iccode\textquotesingle{}}\NormalTok{), }\AttributeTok{omit.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Country{-}speciﬁc time trend"}\NormalTok{,}\StringTok{"Country fixed effect"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{t3}{%
+\subsection{T3}\label{t3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t3\_m1formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccode|Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{t3\_m1 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t3\_m1formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{t3\_m1.coef }\OtherTok{=}\NormalTok{ t3\_m1}\SpecialCharTok{$}\NormalTok{coefficients}
+\NormalTok{t3\_m1.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(t3\_m1, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+
+\NormalTok{t3\_m2formula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\AttributeTok{termlabels =} \FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccode|Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}WAR\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{t3\_m2 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t3\_m2formula, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{t3\_m2.coef }\OtherTok{=}\NormalTok{ t3\_m2}\SpecialCharTok{$}\NormalTok{coefficients}
+\NormalTok{t3\_m2.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(t3\_m2, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+
+\FunctionTok{stargazer}\NormalTok{(t3\_m1,t3\_m2,}\AttributeTok{header =}\NormalTok{ F, }\AttributeTok{type =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{omit =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Iccode\textquotesingle{}}\NormalTok{), }\AttributeTok{omit.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Country{-}speciﬁc time trend"}\NormalTok{,}\StringTok{"Country fixed effect"}\NormalTok{), }\AttributeTok{se =} \FunctionTok{list}\NormalTok{(t3\_m1.se,t3\_m2.se)) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{t5-interactions-between-economic-growth-and-country-characteristics-dependent-variable-civil-conuxfb02ict-25-deaths}{%
+\subsection{T5: Interactions between Economic Growth and Country
+Characteristics Dependent Variable: Civil Conﬂict ≥25
+Deaths}\label{t5-interactions-between-economic-growth-and-country-characteristics-dependent-variable-civil-conuxfb02ict-25-deaths}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# IV 2SLS (1): Interactions between Economic Growth and Democracy on Civil Conﬂict}
+
+\DocumentationTok{\#\# stage 1:}
+\NormalTok{t5\_f1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"polity2l*GPCP\_G"}\NormalTok{, }\StringTok{"polity2l*GPCP\_G\_L"}\NormalTok{))}
+\DocumentationTok{\#\# stage 2: }
+\NormalTok{t5\_f2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{, }\StringTok{"polity2l*GDP\_G\_L"}\NormalTok{, }\StringTok{"polity2l*GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_1 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t5\_f2, }\AttributeTok{instruments =}\NormalTok{ t5\_f1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_1.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_1, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{))) }\CommentTok{\# Cluster Robust Standard Error}
+
+
+\CommentTok{\# IV 2SLS (2): Interactions between Economic Growth and Log Per Capital Income on Civil Conﬂict}
+
+\DocumentationTok{\#\# stage 1: }
+\NormalTok{t5\_f1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"Y\_0*GPCP\_G"}\NormalTok{, }\StringTok{"Y\_0*GPCP\_G\_L"}\NormalTok{))}
+\DocumentationTok{\#\# stage 2: }
+\NormalTok{t5\_f2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{, }\StringTok{"Y\_0*GDP\_G\_L"}\NormalTok{, }\StringTok{"Y\_0*GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_2 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t5\_f2, }\AttributeTok{instruments =}\NormalTok{ t5\_f1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_2.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_2, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{))) }\CommentTok{\# Cluster Robust Standard Error}
+\NormalTok{rmse2 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# IV 2SLS (3): Interactions between Economic Growth and ethnolinguistic fractionalization on Civil Conﬂict}
+
+\DocumentationTok{\#\# stage 1:}
+\NormalTok{t5\_f1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"ethfrac*GPCP\_G"}\NormalTok{, }\StringTok{"ethfrac*GPCP\_G\_L"}\NormalTok{))}
+\DocumentationTok{\#\# stage 2: }
+\NormalTok{t5\_f2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{, }\StringTok{"ethfrac*GDP\_G\_L"}\NormalTok{, }\StringTok{"ethfrac*GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_3 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t5\_f2, }\AttributeTok{instruments =}\NormalTok{ t5\_f1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_3.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_3, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse3 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_3}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# IV 2SLS (4): Interactions between Economic Growth and being an oil{-}exporting country on Civil Conﬂict}
+
+\DocumentationTok{\#\# stage 1:}
+\NormalTok{t5\_f1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"Oil*GPCP\_G"}\NormalTok{, }\StringTok{"Oil*GPCP\_G\_L"}\NormalTok{))}
+\DocumentationTok{\#\# stage 2: }
+\NormalTok{t5\_f2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{, }\StringTok{"Oil*GDP\_G\_L"}\NormalTok{, }\StringTok{"Oil*GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_4 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t5\_f2, }\AttributeTok{instruments =}\NormalTok{ t5\_f1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_4.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_4, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse4 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_4}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+
+\CommentTok{\# IV 2SLS (5): Interactions between Economic Growth and being an mountainous country on Civil Conﬂict}
+
+\DocumentationTok{\#\# stage 1:}
+\NormalTok{t5\_f1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"lmtnest*GPCP\_G"}\NormalTok{, }\StringTok{"lmtnest*GPCP\_G\_L"}\NormalTok{))}
+\DocumentationTok{\#\# stage 2: }
+\NormalTok{t5\_f2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{, }\StringTok{"lmtnest*GDP\_G\_L"}\NormalTok{, }\StringTok{"lmtnest*GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_5 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ t5\_f2, }\AttributeTok{instruments =}\NormalTok{ t5\_f1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_5.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_5, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse5 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_5}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\FunctionTok{stargazer}\NormalTok{(iv2sls\_1,iv2sls\_2,iv2sls\_3,iv2sls\_4,iv2sls\_5,}\AttributeTok{se =} \FunctionTok{list}\NormalTok{(iv2sls\_1.se, iv2sls\_2.se, iv2sls\_3.se, iv2sls\_4.se, iv2sls\_5.se), }\AttributeTok{header =}\NormalTok{ F, }\AttributeTok{type =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{omit =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Iccode\textquotesingle{}}\NormalTok{), }\AttributeTok{omit.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Country{-}speciﬁc time trend"}\NormalTok{,}\StringTok{"Country fixed effect"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{t6-economic-shocks-on-the-onset-of-civil-conflict}{%
+\subsection{T6: Economic shocks on the onset of civil
+conflict}\label{t6-economic-shocks-on-the-onset-of-civil-conflict}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# IV 2SLS 1:}
+\CommentTok{\# stage 1:}
+\NormalTok{m1formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{))}
+\CommentTok{\# stage 2: }
+\NormalTok{m1formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\_ON\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_1 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m1formula2, }\AttributeTok{instruments =}\NormalTok{ m1formula1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_1.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_1, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse1 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_1}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# IV 2SLS 2:}
+\CommentTok{\# stage 1:}
+\NormalTok{m2formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{))}
+\CommentTok{\# stage 2: }
+\NormalTok{m2formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}WAR\_PRIO\_ON\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{iv2sls\_2 }\OtherTok{=} \FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m2formula2, }\AttributeTok{instruments =}\NormalTok{ m2formula1, }\AttributeTok{data =}\NormalTok{ master\_df)}
+\NormalTok{iv2sls\_2.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(iv2sls\_2, }\AttributeTok{cluster =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{)))}
+\NormalTok{rmse2 }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(iv2sls\_2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+
+
+\FunctionTok{stargazer}\NormalTok{(iv2sls\_1,iv2sls\_2,}\AttributeTok{header =}\NormalTok{ F, }\AttributeTok{type =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{omit =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Iccode\textquotesingle{}}\NormalTok{), }\AttributeTok{omit.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Country{-}speciﬁc time trend"}\NormalTok{,}\StringTok{"Country fixed effect"}\NormalTok{), }\AttributeTok{se =} \FunctionTok{list}\NormalTok{(iv2sls\_1.se,iv2sls\_2.se)) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tc1-summary-statistcs-appendix}{%
+\subsection{TC1: Summary Statistcs
+(Appendix)}\label{tc1-summary-statistcs-appendix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tablec1 }\OtherTok{=}\NormalTok{ master\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(Location) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Year\_count =} \FunctionTok{length}\NormalTok{(year),}
+            \AttributeTok{Minor =} \FunctionTok{sum}\NormalTok{(ANY\_PRIO), }
+            \AttributeTok{War =} \FunctionTok{sum}\NormalTok{(WAR\_PRIO)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{((Location)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{adorn\_totals}\NormalTok{()}
+
+
+
+\NormalTok{tablec1 }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Country\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Total Years\textquotesingle{}}\NormalTok{, }\StringTok{"Years of Civil Conﬂict ≥25 Deaths (PRIO/Uppsala)"}\NormalTok{, }\StringTok{"Years of Civil Conﬂict ≥1,000 Deaths (PRIO/Uppsala)"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{t1}{%
+\subsection{T1}\label{t1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\NormalTok{main\_df }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}master\_df.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{table\_1 }\OtherTok{=}\NormalTok{ main\_df  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean =} \FunctionTok{c}\NormalTok{(}
+      \FunctionTok{mean}\NormalTok{(ANY\_PRIO, }\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(ANY\_PRIO\_ON,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(ANY\_PRIO\_OFF,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(WAR\_PRIO, }\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(WAR\_PRIO\_ON,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(WAR\_PRIO\_OFF,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(GPCP,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(GPCP\_G,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(GPCP\_G\_L,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(GDP\_G,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(GDP\_G\_L,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(Y\_0,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(polity2l,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(ethfrac,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(relfrac,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(Oil,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(lmtnest,}\AttributeTok{na.rm=}\NormalTok{T),}
+      \FunctionTok{mean}\NormalTok{(lpopl1,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{mean}\NormalTok{(TOT\_100\_G,}\AttributeTok{na.rm =}\NormalTok{ T)}
+\NormalTok{    ),}
+    \AttributeTok{sd =} \FunctionTok{c}\NormalTok{(}
+      \FunctionTok{sd}\NormalTok{(ANY\_PRIO,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(ANY\_PRIO\_ON,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(ANY\_PRIO\_OFF,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(WAR\_PRIO,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(WAR\_PRIO\_ON,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(WAR\_PRIO\_OFF,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(GPCP,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(GPCP\_G,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(GPCP\_G\_L,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(GDP\_G,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(GDP\_G\_L,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(Y\_0,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(polity2l,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(ethfrac,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(relfrac,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(Oil,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(lmtnest,}\AttributeTok{na.rm=}\NormalTok{T),}
+      \FunctionTok{sd}\NormalTok{(lpopl1,}\AttributeTok{na.rm =}\NormalTok{ T),}
+      \FunctionTok{sd}\NormalTok{(TOT\_100\_G,}\AttributeTok{na.rm =}\NormalTok{ T)}
+\NormalTok{    ),}
+    \AttributeTok{obs =} \FunctionTok{c}\NormalTok{(}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(ANY\_PRIO)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(ANY\_PRIO\_ON)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(ANY\_PRIO\_OFF)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(WAR\_PRIO)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(WAR\_PRIO\_ON)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(WAR\_PRIO\_OFF)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(GPCP)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(GPCP\_G)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(GPCP\_G\_L)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(GDP\_G)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(GDP\_G\_L)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(Y\_0)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(polity2l)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(ethfrac)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(relfrac)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(Oil)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(lmtnest)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(lpopl1)),}
+      \FunctionTok{length}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(TOT\_100\_G))}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{add\_column}\NormalTok{(}\AttributeTok{.before =}\NormalTok{ T, }\AttributeTok{Label =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ANY\_PRIO\_ON\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}ANY\_PRIO\_OFF\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}WAR\_PRIO\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}WAR\_PRIO\_ON\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}WAR\_PRIO\_OFF\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Y\_0\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}polity2l\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}ethfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}relfrac\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Oil\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lmtnest\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}lpopl1\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}TOT\_100\_G\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{robustness-check}{%
+\section{Robustness Check}\label{robustness-check}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The IV{-}2SLS ﬁxed{-}effects results for the 25{-}death threshold are robust to dropping one country at a time. }
+
+\CommentTok{\# stage 1:}
+\NormalTok{m6formula1 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GPCP\_G\textquotesingle{}}\NormalTok{, }\StringTok{"GPCP\_G\_L"}\NormalTok{))}
+\CommentTok{\# stage 2: }
+\NormalTok{m6formula2 }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(master\_df),}\AttributeTok{value =}\NormalTok{ T),}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\StringTok{"GDP\_G"}\NormalTok{),}\AttributeTok{response =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{)}
+
+
+\NormalTok{subset\_iv }\OtherTok{=} \FunctionTok{map\_df}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{41}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(i)\{}
+  
+\NormalTok{ .df }\OtherTok{=}\NormalTok{  master\_df  }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(ccode }\SpecialCharTok{!=} \FunctionTok{unique}\NormalTok{(ccode)[i])}
+\NormalTok{  .model }\OtherTok{=}\NormalTok{ AER}\SpecialCharTok{::}\FunctionTok{ivreg}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ m6formula2, }\AttributeTok{instruments =}\NormalTok{ m6formula1, }\AttributeTok{data =}\NormalTok{ .df)}
+\NormalTok{  GDP\_G.coef }\OtherTok{=}\NormalTok{ .model}\SpecialCharTok{$}\NormalTok{coefficient[}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{] }
+\NormalTok{  GDP\_G\_L.coef }\OtherTok{=}\NormalTok{ .model}\SpecialCharTok{$}\NormalTok{coefficient[}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{]}
+  
+\NormalTok{  GDP\_G.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .model, }\AttributeTok{cluster =}\NormalTok{ .df}\SpecialCharTok{$}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{,)))[}\StringTok{\textquotesingle{}GDP\_G\textquotesingle{}}\NormalTok{]}
+\NormalTok{  GDP\_G\_L.se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(sandwich}\SpecialCharTok{::}\FunctionTok{vcovCL}\NormalTok{(}\AttributeTok{x =}\NormalTok{ .model, }\AttributeTok{cluster =}\NormalTok{ .df}\SpecialCharTok{$}\NormalTok{ccode,}\AttributeTok{type =} \StringTok{\textquotesingle{}HC1\textquotesingle{}}\NormalTok{,)))[}\StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{]}
+\NormalTok{  p.value.GDP\_G }\OtherTok{=}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FunctionTok{abs}\NormalTok{(GDP\_G.coef}\SpecialCharTok{/}\NormalTok{GDP\_G.se)))}\SpecialCharTok{*}\DecValTok{2}
+\NormalTok{  p.value.GDP\_G\_L }\OtherTok{=}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\AttributeTok{q =} \FunctionTok{abs}\NormalTok{(GDP\_G\_L.coef}\SpecialCharTok{/}\NormalTok{GDP\_G\_L.se)))}\SpecialCharTok{*}\DecValTok{2}
+  
+  \FunctionTok{names}\NormalTok{(p.value.GDP\_G) }\OtherTok{=} \StringTok{\textquotesingle{}p.value.GDP\_G\textquotesingle{}}   
+  \FunctionTok{names}\NormalTok{(p.value.GDP\_G\_L) }\OtherTok{=} \StringTok{\textquotesingle{}p.value.GDP\_G\_L\textquotesingle{}}   
+  \FunctionTok{names}\NormalTok{(GDP\_G.coef) }\OtherTok{=} \StringTok{\textquotesingle{}GDP\_G.coef\textquotesingle{}}
+  \FunctionTok{names}\NormalTok{(GDP\_G\_L.coef) }\OtherTok{=} \StringTok{\textquotesingle{}GDP\_G\_L.coef\textquotesingle{}}
+  \FunctionTok{names}\NormalTok{(GDP\_G.se) }\OtherTok{=} \StringTok{\textquotesingle{}GDP\_G.se\textquotesingle{}}
+  \FunctionTok{names}\NormalTok{(GDP\_G\_L.se) }\OtherTok{=} \StringTok{\textquotesingle{}GDP\_G\_L.se\textquotesingle{}}
+  
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(GDP\_G.coef,}
+\NormalTok{         GDP\_G\_L.coef,}
+\NormalTok{         p.value.GDP\_G, }
+\NormalTok{         GDP\_G.se, }
+\NormalTok{         GDP\_G\_L.se, }
+\NormalTok{         p.value.GDP\_G\_L))}
+\NormalTok{\})}
+
+\CommentTok{\# coefﬁcients on economic growth}
+\FunctionTok{range}\NormalTok{(subset\_iv[,}\StringTok{\textquotesingle{}GDP\_G.coef\textquotesingle{}}\NormalTok{])}
+\CommentTok{\# coefﬁcients on lagged economic growth}
+\FunctionTok{range}\NormalTok{(subset\_iv[,}\StringTok{\textquotesingle{}GDP\_G\_L.coef\textquotesingle{}}\NormalTok{])}
+\CommentTok{\# p.value on economic growth }
+\FunctionTok{range}\NormalTok{(subset\_iv[,}\StringTok{\textquotesingle{}p.value.GDP\_G\textquotesingle{}}\NormalTok{])}
+\CommentTok{\# coefﬁcients on lagged economic growth}
+\FunctionTok{range}\NormalTok{(subset\_iv[,}\StringTok{\textquotesingle{}p.value.GDP\_G\_L\textquotesingle{}}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{re-analysis-inversion-method}{%
+\section{Re-analysis: Inversion
+Method}\label{re-analysis-inversion-method}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Anderson{-}Rubin interval for the effect of Lagged GDP Growth (\%) on Civil Conflict (\# of conflicts \textgreater{}= 25 deaths)}
+
+\CommentTok{\# do a sequence of hypothesis tests}
+\NormalTok{get\_AR\_pvals }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(y,z,d,}\AttributeTok{with\_cov=}\NormalTok{T, }\AttributeTok{betas =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{,}\FloatTok{0.01}\NormalTok{))\{}
+\NormalTok{  .data  }\OtherTok{=}\NormalTok{ master\_df}
+
+  \ControlFlowTok{if}\NormalTok{ (with\_cov }\SpecialCharTok{==}\NormalTok{ F) \{}
+\NormalTok{    rformula }\OtherTok{=} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear|Iccode\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(.data),}\AttributeTok{value =}\NormalTok{ T), z),}\AttributeTok{response =} \StringTok{\textquotesingle{}adj\_y\textquotesingle{}}\NormalTok{)}
+\NormalTok{  \}}
+  \ControlFlowTok{else}\NormalTok{(}
+    \AttributeTok{rformula =} \FunctionTok{reformulate}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}Iccyear\textquotesingle{}}\NormalTok{,}\AttributeTok{x =} \FunctionTok{names}\NormalTok{(.data),}\AttributeTok{value =}\NormalTok{ T),X, z),}\AttributeTok{response =} \StringTok{\textquotesingle{}adj\_y\textquotesingle{}}\NormalTok{)}
+\NormalTok{  )}
+  
+\NormalTok{  D }\OtherTok{=}\NormalTok{ master\_df[[d]]}
+\NormalTok{  Y }\OtherTok{=}\NormalTok{ master\_df[[y]]}
+\NormalTok{  p.values }\OtherTok{=} \FunctionTok{map\_dbl}\NormalTok{(betas, }\ControlFlowTok{function}\NormalTok{(b)\{}
+    \CommentTok{\# b is the coefficient of interest. }
+\NormalTok{    .data}\SpecialCharTok{$}\NormalTok{adj\_y }\OtherTok{=}\NormalTok{ Y }\SpecialCharTok{{-}}\NormalTok{ b}\SpecialCharTok{*}\NormalTok{D}
+\NormalTok{    reg }\OtherTok{=} \FunctionTok{glm}\NormalTok{(rformula,}\AttributeTok{data =}\NormalTok{ .data,}\AttributeTok{family =} \StringTok{\textquotesingle{}gaussian\textquotesingle{}}\NormalTok{)}
+\NormalTok{    coef.z }\OtherTok{=}\NormalTok{ reg}\SpecialCharTok{$}\NormalTok{coefficients[z]}
+\NormalTok{    se.z }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(}\FunctionTok{hccm}\NormalTok{(reg))[z])}
+\NormalTok{    Tstat }\OtherTok{=}\NormalTok{ coef.z}\SpecialCharTok{/}\NormalTok{se.z}
+\NormalTok{    p.value }\OtherTok{=}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pt}\NormalTok{(}\AttributeTok{q =} \FunctionTok{abs}\NormalTok{(Tstat),}\AttributeTok{df =}\NormalTok{ reg}\SpecialCharTok{$}\NormalTok{df.residual))}\SpecialCharTok{*}\DecValTok{2}
+    \FunctionTok{return}\NormalTok{(p.value)}
+\NormalTok{  \})}
+  \FunctionTok{return}\NormalTok{(p.values)}
+\NormalTok{\}}
+
+\CommentTok{\# AFR test}
+\NormalTok{betas }\OtherTok{=} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\DecValTok{5}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{AR\_pvals.Y1.z1.d1 }\OtherTok{=} \FunctionTok{get\_AR\_pvals}\NormalTok{(}\AttributeTok{y =} \StringTok{\textquotesingle{}ANY\_PRIO\textquotesingle{}}\NormalTok{, }\AttributeTok{z  =} \StringTok{\textquotesingle{}GPCP\_G\_L\textquotesingle{}}\NormalTok{, }\AttributeTok{d =} \StringTok{\textquotesingle{}GDP\_G\_L\textquotesingle{}}\NormalTok{, }\AttributeTok{with\_cov =}\NormalTok{ T, }\AttributeTok{betas =}\NormalTok{ betas)}
+
+\NormalTok{point.est.Y1.z1.d1 }\OtherTok{=}\NormalTok{  betas[}\FunctionTok{which.max}\NormalTok{(AR\_pvals.Y1.z1.d1)]}
+\NormalTok{CI.Y1.z1.d1 }\OtherTok{=} \FunctionTok{range}\NormalTok{(betas[AR\_pvals.Y1.z1.d1 }\SpecialCharTok{\textgreater{}=} \FloatTok{0.05}\NormalTok{])}
+\FunctionTok{plot}\NormalTok{(AR\_pvals.Y1.z1.d1 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ betas, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"coefficient of GDP Growth"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"p{-}value"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \FloatTok{0.05}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ point.est.Y1.z1.d1, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\NormalTok{ARCI }\OtherTok{=}\NormalTok{ CI.Y1.z1.d1}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ ARCI[}\DecValTok{1}\NormalTok{], }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ ARCI[}\DecValTok{2}\NormalTok{], }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ipw}{%
+\subsection{IPW}\label{ipw}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{master\_df }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}master\_df.csv\textquotesingle{}}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{156}\NormalTok{)}
+
+\NormalTok{OS\_est }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(z, y, x, }\AttributeTok{out.family =}\NormalTok{ gaussian, }
+                  \AttributeTok{truncpscore =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{\{}
+     \DocumentationTok{\#\# fitted propensity score}
+\NormalTok{     pscore   }\OtherTok{=} \FunctionTok{glm}\NormalTok{(z }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{family =}\NormalTok{ binomial)}\SpecialCharTok{$}\NormalTok{fitted.values}
+\NormalTok{     pscore   }\OtherTok{=} \FunctionTok{pmax}\NormalTok{(truncpscore[}\DecValTok{1}\NormalTok{], }\FunctionTok{pmin}\NormalTok{(truncpscore[}\DecValTok{2}\NormalTok{], pscore))}
+     
+     \DocumentationTok{\#\# fitted potential outcomes}
+\NormalTok{     outcome1 }\OtherTok{=} \FunctionTok{glm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{weights =}\NormalTok{ z, }
+                    \AttributeTok{family =}\NormalTok{ out.family)}\SpecialCharTok{$}\NormalTok{fitted.values}
+\NormalTok{     outcome0 }\OtherTok{=} \FunctionTok{glm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{weights =}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ z), }
+                    \AttributeTok{family =}\NormalTok{ out.family)}\SpecialCharTok{$}\NormalTok{fitted.values}
+     
+     \DocumentationTok{\#\# regression imputation estimator}
+\NormalTok{     ace.reg  }\OtherTok{=} \FunctionTok{mean}\NormalTok{(outcome1 }\SpecialCharTok{{-}}\NormalTok{ outcome0) }
+     \DocumentationTok{\#\# IPW estimators}
+\NormalTok{     ace.ipw0 }\OtherTok{=} \FunctionTok{mean}\NormalTok{(z}\SpecialCharTok{*}\NormalTok{y}\SpecialCharTok{/}\NormalTok{pscore }\SpecialCharTok{{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ z)}\SpecialCharTok{*}\NormalTok{y}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ pscore))}
+\NormalTok{     ace.ipw  }\OtherTok{=} \FunctionTok{mean}\NormalTok{(z}\SpecialCharTok{*}\NormalTok{y}\SpecialCharTok{/}\NormalTok{pscore)}\SpecialCharTok{/}\FunctionTok{mean}\NormalTok{(z}\SpecialCharTok{/}\NormalTok{pscore) }\SpecialCharTok{{-}} 
+                   \FunctionTok{mean}\NormalTok{((}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ z)}\SpecialCharTok{*}\NormalTok{y}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ pscore))}\SpecialCharTok{/}\FunctionTok{mean}\NormalTok{((}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ z)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ pscore))}
+     \DocumentationTok{\#\# doubly robust estimator}
+\NormalTok{     res1     }\OtherTok{=}\NormalTok{ y }\SpecialCharTok{{-}}\NormalTok{ outcome1}
+\NormalTok{     res0     }\OtherTok{=}\NormalTok{ y }\SpecialCharTok{{-}}\NormalTok{ outcome0}
+\NormalTok{     ace.dr   }\OtherTok{=}\NormalTok{ ace.reg }\SpecialCharTok{+} \FunctionTok{mean}\NormalTok{(z}\SpecialCharTok{*}\NormalTok{res1}\SpecialCharTok{/}\NormalTok{pscore }\SpecialCharTok{{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ z)}\SpecialCharTok{*}\NormalTok{res0}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ pscore))}
+
+     \FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(ace.reg, ace.ipw0, ace.ipw, ace.dr))     }
+\NormalTok{\}}
+
+
+\NormalTok{OS\_ATE }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(z, y, x, }\AttributeTok{n.boot =} \DecValTok{2}\SpecialCharTok{*}\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+                     \AttributeTok{out.family =}\NormalTok{ gaussian, }\AttributeTok{truncpscore =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{\{}
+\NormalTok{     point.est  }\OtherTok{=} \FunctionTok{OS\_est}\NormalTok{(z, y, x, out.family, truncpscore)}
+     
+     \DocumentationTok{\#\# nonparametric bootstrap}
+\NormalTok{     n.sample   }\OtherTok{=} \FunctionTok{length}\NormalTok{(z)}
+\NormalTok{     x          }\OtherTok{=} \FunctionTok{as.matrix}\NormalTok{(x)}
+\NormalTok{     boot.est   }\OtherTok{=} \FunctionTok{replicate}\NormalTok{(n.boot, }
+\NormalTok{                  \{id.boot }\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.sample, n.sample, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+                  \FunctionTok{OS\_est}\NormalTok{(z[id.boot], y[id.boot], x[id.boot, ], }
+\NormalTok{                         out.family, truncpscore)\})}
+
+\NormalTok{     boot.se    }\OtherTok{=} \FunctionTok{apply}\NormalTok{(boot.est, }\DecValTok{1}\NormalTok{, sd)}
+     
+\NormalTok{     res        }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(point.est, boot.se)}
+     \FunctionTok{rownames}\NormalTok{(res) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"est"}\NormalTok{, }\StringTok{"se"}\NormalTok{)}
+     \FunctionTok{colnames}\NormalTok{(res) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"reg"}\NormalTok{, }\StringTok{"HT"}\NormalTok{, }\StringTok{"Hajek"}\NormalTok{, }\StringTok{"DR"}\NormalTok{)}
+     
+     \FunctionTok{return}\NormalTok{(res)}
+\NormalTok{\}}
+
+
+\NormalTok{Z }\OtherTok{=} \FunctionTok{as.integer}\NormalTok{((master\_df}\SpecialCharTok{$}\NormalTok{GDP\_G\_L) }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{Y }\OtherTok{=}\NormalTok{ master\_df}\SpecialCharTok{$}\NormalTok{ANY\_PRIO}
+\NormalTok{X }\OtherTok{=} \FunctionTok{as.matrix}\NormalTok{(master\_df[, }\FunctionTok{c}\NormalTok{(}\DecValTok{85}\NormalTok{,}\DecValTok{61}\NormalTok{,}\DecValTok{51}\NormalTok{,}\DecValTok{56}\NormalTok{,}\DecValTok{49}\NormalTok{,}\DecValTok{36}\NormalTok{)])}
+
+\NormalTok{pscore }\OtherTok{=} \FunctionTok{glm}\NormalTok{(Z }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X, }\AttributeTok{family =}\NormalTok{ binomial)}\SpecialCharTok{$}\NormalTok{fitted.values}
+\FunctionTok{hist}\NormalTok{(pscore)}
+\FunctionTok{hist}\NormalTok{(pscore[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])}
+\FunctionTok{hist}\NormalTok{(pscore[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+
+\NormalTok{causaleffects }\OtherTok{=} \FunctionTok{OS\_ATE}\NormalTok{(Z, Y, X, }
+                      \AttributeTok{out.family =}\NormalTok{ binomial, }\AttributeTok{n.boot =} \DecValTok{1000}\NormalTok{, }\AttributeTok{truncpscore =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.9}\NormalTok{))}
+\FunctionTok{round}\NormalTok{(causaleffects, }\DecValTok{3}\NormalTok{)}
+\FunctionTok{rbind}\NormalTok{(causaleffects[}\DecValTok{1}\NormalTok{, ] }\SpecialCharTok{{-}} \FloatTok{1.96}\SpecialCharTok{*}\NormalTok{causaleffects[}\DecValTok{2}\NormalTok{, ],}
+\NormalTok{      causaleffects[}\DecValTok{1}\NormalTok{, ] }\SpecialCharTok{+} \FloatTok{1.96}\SpecialCharTok{*}\NormalTok{causaleffects[}\DecValTok{2}\NormalTok{, ])}
+\end{Highlighting}
+\end{Shaded}
+
+```
+
+\end{document}

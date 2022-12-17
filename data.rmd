@@ -1,0 +1,351 @@
+---
+title: "Rainfall Data Cleaning"
+author: "Wenhao Pan"
+date: "2022-12-07"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Target 
+
+```{r}
+armed = read.csv('raw_data/armed_conflict_dataset.csv')
+armed = armed[rep(row.names(armed), (armed$End - armed$Begin + 1)),]
+armed = armed %>%
+  group_by(Primkey) %>%
+  mutate(YEAR = Begin + row_number(Primkey) - 1)
+write.csv(armed, 'armed.csv')
+```
+
+
+
+```{r}
+library(haven)
+target = read_dta('original_data/Data/mss_repdata.dta')
+target_rain = read_dta('original_data/Data/mss_africa_rainfall.dta')
+```
+
+
+## Clean the rainfall data
+
+```{r}
+# install.packages('tidync')
+library(tidync)
+library(dplyr)
+library(stringr)
+rain = tidync('raw_data/precip.mon.mean.nc') %>%
+  hyper_tibble()
+
+### filter nodes in Africa ###
+rain = rain %>% 
+  filter(lat >= -40 & lat <= 40) %>%
+  filter(lon >= 330 | (lon >= 0 & lon <= 60)) 
+
+### extract year and month ###
+rain$time = rain$time - min(rain$time)
+rain$date = as.Date(rain$time, origin = '1979-01-01')
+rain$year = as.numeric(format(rain$date, '%Y'))
+rain = rain %>%
+  filter(year <= 2000)
+
+rain$month = as.numeric(format(rain$date, '%m'))
+rain = rain %>%
+  select(-c('time','date'))
+rain$pos = paste(as.character(rain$lon), as.character(rain$lat))
+
+node = read.csv('raw_data/mss_rainfall.csv')
+node = node %>%
+  rename('Lon' = 'Longitude', 'Lat' = 'Latitude')
+
+### clean the node data ###
+for(i in 1:nrow(node)) {
+  # clean longitude
+  lon = node[i,'Lon']
+  direction = str_extract(lon, '[EW]')
+  val = as.double(str_extract(lon, '^(\\d+\\.\\d+)'))
+  if (direction == 'E'){
+    node[i, 'Lon'] = val
+  } else {
+    node[i, 'Lon'] = 360 - val
+  }
+  
+  # clean latitude
+  lat = node[i, 'Lat']
+  direction = str_extract(lat, '[NS]')
+  val = as.double(str_extract(lat, '^(\\d+\\.\\d+)'))
+  if (direction == 'N'){
+    node[i, 'Lat'] = val
+  } else {
+    node[i, 'Lat'] = -val
+  }
+}
+
+### integrate the rainfall and node data ###
+country_list = unique(node$Country)
+for(i in 1:length(country_list)){
+  country = country_list[i]
+  country_node = node %>% 
+    filter(Country == country)
+  node_pos = paste(country_node$Lon, country_node$Lat)
+  country_rain = rain[rain$pos %in% node_pos,]
+  country_rain$country = country
+  country_rain = country_rain %>%
+    select(-c('lon', 'lat', 'pos'))
+  
+  if (i == 1){
+    final = country_rain
+  } else {
+    final = rbind(final, country_rain)
+  }
+}
+
+### recover GPCP ###
+leap_years = c('1980','1984','1988','1992','1996','2000')
+month_total = numeric(nrow(final))
+for (i in 1:nrow(final)){
+  obs = final[i,]
+  year = obs$year
+  month = obs$month
+  precip = obs$precip
+  
+  if (month == '1'){
+    month_total[i] = precip * 31
+  } else if ((month == '2') & (year %in% leap_years)) {
+    month_total[i] = precip * 29
+  } else if (month == '2') {
+    month_total[i] = precip * 28
+  } else if (month == '3') {
+    month_total[i] = precip * 31
+  } else if (month == '4') {
+    month_total[i] = precip * 30
+  } else if (month == '5') {
+    month_total[i] = precip * 31
+  } else if (month == '6') {
+    month_total[i] = precip * 30
+  } else if (month == '7') {
+    month_total[i] = precip * 31
+  } else if (month == '8') {
+    month_total[i] = precip * 31
+  } else if (month == '9') {
+    month_total[i] = precip * 30
+  } else if (month == '10') {
+    month_total[i] = precip * 31
+  } else if (month == '11') {
+    month_total[i] = precip * 30
+  } else {
+    month_total[i] = precip * 31
+  }
+}
+final$month_total = month_total
+final = final %>%
+  select(-c('precip','month')) %>%
+  group_by(country, year) %>%
+  summarise(GPCP = sum(month_total))
+
+n_nodes = node %>%
+  group_by(Country) %>%
+  summarise(n = n())
+
+for (i in 1:nrow(final)){
+  obs = final[i, ]
+  country = obs$country
+  GPCP = obs$GPCP
+  n = n_nodes[n_nodes$Country == country,]$n
+  final[i,'GPCP'] = GPCP / n
+}
+
+# adjust measures for Ethiopia
+final = final %>%
+  filter(!((country == 'Ethiopia, pre 1993' & year >= '1993') | (country == 'Ethiopia, post 1993' & year < '1993')))
+final[str_detect(final$country, 'Ethiopia'),]$country = 'Ethiopia'
+final = final %>%
+  arrange(country, year)
+
+### recover features derived from GPCP ###
+final = final %>%
+  group_by(country) %>%
+  mutate(
+    GPCP_L = dplyr::lag(GPCP, n=1, default=NA),
+    GPCP_L2 = dplyr::lag(GPCP, n=2, default=NA),
+  ) %>%
+  mutate(
+    GPCP_G = (GPCP - GPCP_L) / GPCP_L,
+    GPCP_G_L = (GPCP_L - GPCP_L2) / GPCP_L2,
+    GPCP_G_FL = dplyr::lead(GPCP_G, n=1, default=NA)
+  )
+
+### assign COW country code ###
+COW_code = read.csv('raw_data/COW-country-codes.csv')
+country_list = unique(final$country)
+sub = COW_code[COW_code$StateNme %in% country_list,]
+sub = sub[!duplicated(sub),]
+sub[nrow(sub)+1,] = c('CDI','437',"Cote d'Ivoire")
+sub[nrow(sub)+1,] = c('CON','484','Congo, Brazzaville')
+sub[nrow(sub)+1,] = c('DRC','490','Congo, Kinshasa')
+COW_code = sub %>%
+  arrange(CCode)
+
+code = integer(nrow(final))
+for (i in 1:nrow(final)){
+  obs = final[i,]
+  country = obs$country
+  code[i] = COW_code[COW_code$StateNme == country,]$CCode
+}
+final$ccode = code
+```
+
+## Clean the Fearon and Laitin (2003) data
+
+```{r}
+# install.packages('haven')
+library(haven)
+FL = read_dta('raw_data/FL.dta')
+```
+
+## Clean GDNGD data
+
+```{r}
+GDNGD = read.csv('raw_data/GDNGD.csv')
+COW_code$StateNme = replace(COW_code$StateNme, COW_code$StateNme == 'Congo, Brazzaville', 'Congo, Rep.')
+COW_code$StateNme = replace(COW_code$StateNme, COW_code$StateNme == 'Congo, Kinshasa', 'Congo, Dem. Rep.')
+COW_code$StateNme = replace(COW_code$StateNme, COW_code$StateNme == 'Gambia', 'Gambia, The')
+code = integer(nrow(GDNGD))
+for (i in 1:nrow(GDNGD)){
+  obs = GDNGD[i,]
+  country = obs$Country.Name
+  
+  if (country %in% COW_code$StateNme){
+    code[i] = COW_code[COW_code$StateNme == country,]$CCode
+  } else {
+    code[i] = 'NA'
+  }
+}
+GDNGD$ccode = code
+GDNGD = GDNGD %>%
+  filter(ccode != 'NA')
+GDNGD = replace(GDNGD, GDNGD=='..',NA)
+```
+
+## Integrate all data
+
+```{r}
+### bring in GDNGD ###
+TOT = numeric(nrow(final))
+for (i in 1:nrow(final)) {
+  obs = final[i,]
+  if (obs$year == '2000'){
+    TOT[i] = NA
+  } else {
+    TOT[i] = GDNGD[GDNGD$ccode == obs$ccode, paste('X',obs$year,sep='')]
+  }
+}
+final$TOT_100 = as.double(TOT)
+final = final %>%
+  group_by(country) %>%
+  mutate(
+    TOT_100_L = dplyr::lag(TOT_100, n=1, default=NA),
+  )
+final$TOT_100_G = (final$TOT_100 - final$TOT_100_L) / final$TOT_100_L
+
+### bring in the Fearon and Laitin (2003) ###
+final = merge(final, FL, by=c('ccode','year'))
+final = final %>% 
+  arrange(ccode, year)
+final$GDP_G = (final$gdpen - final$gdpenl) / final$gdpenl
+final = final %>%
+  group_by(ccode) %>%
+  mutate(
+    GDP_G_L = dplyr::lag(GDP_G, n=1, default=NA),
+  )
+final$POLITY2L_6 = as.integer(final$polity2l >= 6)
+final = final %>%
+  group_by(ccode) %>%
+  mutate(Y_0 = first(gdpen))
+write.csv(final, 'clean_data.csv')
+```
+
+## Summary Statistics Table
+
+```{r}
+# Table 1
+library(dplyr)
+library(tibble)
+main_df = read.csv('master_df.csv')
+table_1 = main_df  %>%
+  summarise(
+    mean = c(
+      mean(ANY_PRIO, na.rm = T),
+      mean(ANY_PRIO_ON,na.rm = T),
+      mean(ANY_PRIO_OFF,na.rm = T),
+      mean(WAR_PRIO, na.rm = T),
+      mean(WAR_PRIO_ON,na.rm = T),
+      mean(WAR_PRIO_OFF,na.rm = T),
+      mean(GPCP,na.rm = T),
+      mean(GPCP_G,na.rm = T),
+      mean(GPCP_G_L,na.rm = T),
+      mean(GDP_G,na.rm = T),
+      mean(GDP_G_L,na.rm = T),
+      mean(Y_0,na.rm = T),
+      mean(polity2l,na.rm = T),
+      mean(ethfrac,na.rm = T),
+      mean(relfrac,na.rm = T),
+      mean(Oil,na.rm = T),
+      mean(lmtnest,na.rm=T),
+      mean(lpopl1,na.rm = T),
+      mean(TOT_100_G,na.rm = T)
+    ),
+    sd = c(
+      sd(ANY_PRIO,na.rm = T),
+      sd(ANY_PRIO_ON,na.rm = T),
+      sd(ANY_PRIO_OFF,na.rm = T),
+      sd(WAR_PRIO,na.rm = T),
+      sd(WAR_PRIO_ON,na.rm = T),
+      sd(WAR_PRIO_OFF,na.rm = T),
+      sd(GPCP,na.rm = T),
+      sd(GPCP_G,na.rm = T),
+      sd(GPCP_G_L,na.rm = T),
+      sd(GDP_G,na.rm = T),
+      sd(GDP_G_L,na.rm = T),
+      sd(Y_0,na.rm = T),
+      sd(polity2l,na.rm = T),
+      sd(ethfrac,na.rm = T),
+      sd(relfrac,na.rm = T),
+      sd(Oil,na.rm = T),
+      sd(lmtnest,na.rm=T),
+      sd(lpopl1,na.rm = T),
+      sd(TOT_100_G,na.rm = T)
+    ),
+    obs = c(
+      length(na.omit(ANY_PRIO)),
+      length(na.omit(ANY_PRIO_ON)),
+      length(na.omit(ANY_PRIO_OFF)),
+      length(na.omit(WAR_PRIO)),
+      length(na.omit(WAR_PRIO_ON)),
+      length(na.omit(WAR_PRIO_OFF)),
+      length(na.omit(GPCP)),
+      length(na.omit(GPCP_G)),
+      length(na.omit(GPCP_G_L)),
+      length(na.omit(GDP_G)),
+      length(na.omit(GDP_G_L)),
+      length(na.omit(Y_0)),
+      length(na.omit(polity2l)),
+      length(na.omit(ethfrac)),
+      length(na.omit(relfrac)),
+      length(na.omit(Oil)),
+      length(na.omit(lmtnest)),
+      length(na.omit(lpopl1)),
+      length(na.omit(TOT_100_G))
+    )
+  ) %>% 
+  add_column(.before = T, Label = c(
+    'ANY_PRIO', 'ANY_PRIO_ON','ANY_PRIO_OFF','WAR_PRIO','WAR_PRIO_ON',
+    'WAR_PRIO_OFF','GPCP','GPCP_G','GPCP_G_L','GDP_G','GDP_G_L','Y_0',
+    'polity2l','ethfrac','relfrac','Oil','lmtnest','lpopl1','TOT_100_G'))
+
+# Table C1
+```
+
+
