@@ -1,0 +1,348 @@
+Country,Node,Longitude,Latitude
+Angola,1,13.75 E,16.25 S
+Angola,2,13.75 E,13.75 S
+Angola,3,13.75 E,8.75 S
+Angola,4,13.75 E,6.25 S
+Angola,5,16.25 E,16.25 S
+Angola,6,16.25 E,13.75 S
+Angola,7,16.25 E,11.25 S
+Angola,8,16.25 E,8.75 S
+Angola,9,16.25 E,6.25 S
+Angola,10,18.75 E,16.25 S
+Angola,11,18.75 E,13.75 S
+Angola,12,18.75 E,11.25 S
+Angola,13,18.75 E,8.75 S
+Angola,14,21.25 E,16.25 S
+Angola,15,21.25 E,13.75 S
+Angola,16,21.25 E,11.25 S
+Angola,17,21.25 E,8.75 S
+Angola,18,23.75 E,11.25 S
+Benin,1,1.25 E,11.25 N
+Botswana,1,21.25 E,26.25 S
+Botswana,2,21.25 E,23.75 S
+Botswana,3,21.25 E,21.25 S
+Botswana,4,21.25 E,18.75 S
+Botswana,5,23.75 E,23.75 S
+Botswana,6,23.75 E,21.25 S
+Botswana,7,23.75 E,18.75 S
+Botswana,8,26.25 E,23.75 S
+Botswana,9,26.25 E,21.25 S
+Burkina Faso,1,3.75 W,11.25 N
+Burkina Faso,2,1.25 W,11.25 N
+Burkina Faso,3,1.25 W,13.75 N
+Burundi,1,28.75 E,3.75 S
+Burundi,2,31.25 E,3.75 S
+Cameroon,1,11.25 E,3.75 N
+Cameroon,2,11.25 E,6.25 N
+Cameroon,3,13.75 E,3.75 N
+Cameroon,4,13.75 E,6.25 N
+Cameroon,5,13.75 E,8.75 N
+Central African Republic,1,16.25 E,3.75 N
+Central African Republic,2,16.25 E,6.25 N
+Central African Republic,3,18.75 E,6.25 N
+Central African Republic,4,21.25 E,6.25 N
+Central African Republic,5,21.25 E,8.75 N
+Central African Republic,6,23.75 E,6.25 N
+Central African Republic,7,26.25 E,6.25 N
+Chad,1,13.75 E,13.75 N
+Chad,2,16.25 E,8.75 N
+Chad,3,16.25 E,11.25 N
+Chad,4,16.25 E,13.75 N
+Chad,5,16.25 E,16.25 N
+Chad,6,16.25 E,18.75 N
+Chad,7,16.25 E,21.25 N
+Chad,8,18.75 E,8.75 N
+Chad,9,18.75 E,11.25 N
+Chad,10,18.75 E,13.75 N
+Chad,11,18.75 E,16.25 N
+Chad,12,18.75 E,18.75 N
+Chad,13,18.75 E,21.25 N
+Chad,14,21.25 E,11.25 N
+Chad,15,21.25 E,13.75 N
+Chad,16,21.25 E,16.25 N
+Chad,17,21.25 E,18.75 N
+Chad,18,23.75 E,16.25 N
+Chad,19,23.75 E,18.75 N
+"Congo, Brazzaville",1,11.25 E,3.75 S
+"Congo, Brazzaville",2,13.75 E,3.75 S
+"Congo, Brazzaville",3,16.25 E,1.25 S
+"Congo, Brazzaville",4,16.25 E,1.25 N
+"Congo, Kinshasa",1,16.25 E,3.75 S
+"Congo, Kinshasa",2,18.75 E,6.25 S
+"Congo, Kinshasa",3,18.75 E,3.75 S
+"Congo, Kinshasa",4,18.75 E,1.25 S
+"Congo, Kinshasa",5,18.75 E,1.25 N
+"Congo, Kinshasa",6,18.75 E,3.75 N
+"Congo, Kinshasa",7,21.25 E,6.25 S
+"Congo, Kinshasa",8,21.25 E,3.75 S
+"Congo, Kinshasa",9,21.25 E,1.25 S
+"Congo, Kinshasa",10,21.25 E,1.25 N
+"Congo, Kinshasa",11,21.25 E,3.75 N
+"Congo, Kinshasa",12,23.75 E,8.75 S
+"Congo, Kinshasa",13,23.75 E,6.25 S
+"Congo, Kinshasa",14,23.75 E,3.75 S
+"Congo, Kinshasa",15,23.75 E,1.25 S
+"Congo, Kinshasa",16,23.75 E,1.25 N
+"Congo, Kinshasa",17,23.75 E,3.75 N
+"Congo, Kinshasa",18,26.25 E,11.25 S
+"Congo, Kinshasa",19,26.25 E,8.75 S
+"Congo, Kinshasa",20,26.25 E,6.25 S
+"Congo, Kinshasa",21,26.25 E,3.75 S
+"Congo, Kinshasa",22,26.25 E,1.25 S
+"Congo, Kinshasa",23,26.25 E,1.25 N
+"Congo, Kinshasa",24,26.25 E,3.75 N
+"Congo, Kinshasa",25,28.75 E,8.75 S
+"Congo, Kinshasa",26,28.75 E,6.25 S
+"Congo, Kinshasa",27,28.75 E,3.75 S
+"Congo, Kinshasa",28,28.75 E,1.25 S
+"Congo, Kinshasa",29,28.75 E,1.25 N
+"Congo, Kinshasa",30,28.75 E,3.75 N
+Cote d'Ivoire,1,6.25 W,6.25 N
+Cote d'Ivoire,2,6.25 W,8.75 N
+Cote d'Ivoire,3,3.75 W,6.25 N
+Cote d'Ivoire,4,3.75 W,8.75 N
+Djibouti,1,41.25 E,11.25 N
+Djibouti,2,43.75 E,11.25 N
+"Ethiopia, pre 1993",1,38.75 E,16.25 N
+"Ethiopia, pre 1993",2,41.25 E,13.75 N
+"Ethiopia, pre 1993",3,36.25 E,6.25 N
+"Ethiopia, pre 1993",4,36.25 E,8.75 N
+"Ethiopia, pre 1993",5,36.25 E,11.25 N
+"Ethiopia, pre 1993",6,38.75 E,3.75 N
+"Ethiopia, pre 1993",7,38.75 E,6.25 N
+"Ethiopia, pre 1993",8,38.75 E,8.75 N
+"Ethiopia, pre 1993",9,38.75 E,11.25 N
+"Ethiopia, pre 1993",10,38.75 E,13.75 N
+"Ethiopia, pre 1993",11,41.25 E,6.25 N
+"Ethiopia, pre 1993",12,41.25 E,8.75 N
+"Ethiopia, pre 1993",13,41.25 E,11.25 N
+"Ethiopia, pre 1993",14,43.75 E,6.25 N
+"Ethiopia, pre 1993",15,43.75 E,8.75 N
+"Ethiopia, post 1993",1,36.25 E,6.25 N
+"Ethiopia, post 1993",2,36.25 E,8.75 N
+"Ethiopia, post 1993",3,36.25 E,11.25 N
+"Ethiopia, post 1993",4,38.75 E,3.75 N
+"Ethiopia, post 1993",5,38.75 E,6.25 N
+"Ethiopia, post 1993",6,38.75 E,8.75 N
+"Ethiopia, post 1993",7,38.75 E,11.25 N
+"Ethiopia, post 1993",8,38.75 E,13.75 N
+"Ethiopia, post 1993",9,41.25 E,6.25 N
+"Ethiopia, post 1993",10,41.25 E,8.75 N
+"Ethiopia, post 1993",11,41.25 E,11.25 N
+"Ethiopia, post 1993",12,43.75 E,6.25 N
+"Ethiopia, post 1993",13,43.75 E,8.75 N
+Gabon,1,11.25 E,1.25 S
+Gabon,2,13.75 E,1.25 S
+Gabon,3,13.75 E,1.25 N
+Gambia,1,16.25 W,13.75 N
+Gambia,2,13.75 W,13.75 N
+Ghana,1,1.25 W,6.25 N
+Ghana,2,1.25 W,8.75 N
+Guinea,1,13.75 W,11.25 N
+Guinea,2,11.25 W,11.25 N
+Guinea,3,8.75 W,8.75 N
+Guinea,4,8.75 W,11.25 N
+Guinea-Bissau,1,16.25 W,11.25 N
+Kenya,1,36.25 E,1.25 S
+Kenya,2,36.25 E,1.25 N
+Kenya,3,36.25 E,3.75 N
+Kenya,4,38.75 E,3.75 S
+Kenya,5,38.75 E,1.25 S
+Kenya,6,38.75 E,1.25 N
+Kenya,7,41.25 E,1.25 S
+Kenya,8,41.25 E,3.75 N
+Lesotho,1,28.75 E,28.75 S
+Liberia,1,351.25 E,6.25 N
+Madagascar,1,43.75 E,23.75 S
+Madagascar,2,46.25 E,23.75 S
+Madagascar,3,46.25 E,21.25 S
+Madagascar,4,46.25 E,18.75 S
+Madagascar,5,46.25 E,16.25 S
+Madagascar,6,48.75 E,18.75 S
+Madagascar,7,48.75 E,16.25 S
+Madagascar,8,48.75 E,13.75 S
+Malawi,1,33.75 E,13.75 S
+Malawi,2,33.75 E,11.25 S
+Mali,1,1.25 E,16.25 N
+Mali,2,1.25 E,18.75 N
+Mali,3,3.75 E,16.25 N
+Mali,4,3.75 E,18.75 N
+Mali,5,11.25 W,13.75 N
+Mali,6,8.75 W,13.75 N
+Mali,7,6.25 W,11.25 N
+Mali,8,6.25 W,13.75 N
+Mali,9,6.25 W,23.75 N
+Mali,10,3.75 W,13.75 N
+Mali,11,3.75 W,16.25 N
+Mali,12,3.75 W,18.75 N
+Mali,13,3.75 W,21.25 N
+Mali,14,3.75 W,23.75 N
+Mali,15,1.25 W,16.25 N
+Mali,16,1.25 W,18.75 N
+Mali,17,1.25 W,21.25 N
+Mauritania,1,16.25 W,21.25 N
+Mauritania,2,13.75 W,16.25 N
+Mauritania,3,13.75 W,18.75 N
+Mauritania,4,13.75 W,21.25 N
+Mauritania,5,11.25 W,16.25 N
+Mauritania,6,11.25 W,18.75 N
+Mauritania,7,11.25 W,21.25 N
+Mauritania,8,348.75 E,23.75 N
+Mauritania,9,351.25 E,16.25 N
+Mauritania,10,351.25 E,18.75 N
+Mauritania,11,351.25 E,21.25 N
+Mauritania,12,351.25 E,23.75 N
+Mauritania,13,353.75 E,16.25 N
+Mauritania,14,353.75 E,18.75 N
+Mauritania,15,353.75 E,21.25 N
+Mozambique,1,33.75 E,23.75 S
+Mozambique,2,33.75 E,21.25 S
+Mozambique,3,33.75 E,18.75 S
+Mozambique,4,33.75 E,16.25 S
+Mozambique,5,36.25 E,18.75 S
+Mozambique,6,36.25 E,16.25 S
+Mozambique,7,36.25 E,13.75 S
+Mozambique,8,38.75 E,16.25 S
+Mozambique,9,38.75 E,13.75 S
+Mozambique,10,38.75 E,11.25 S
+Namibia,1,13.75 E,21.25 S
+Namibia,2,13.75 E,18.75 S
+Namibia,3,16.25 E,26.25 S
+Namibia,4,16.25 E,23.75 S
+Namibia,5,16.25 E,21.25 S
+Namibia,6,16.25 E,18.75 S
+Namibia,7,18.75 E,28.75 S
+Namibia,8,18.75 E,26.25 S
+Namibia,9,18.75 E,23.75 S
+Namibia,10,18.75 E,21.25 S
+Namibia,11,18.75 E,18.75 S
+Niger,1,1.25 E,13.75 N
+Niger,2,3.75 E,13.75 N
+Niger,3,6.25 E,13.75 N
+Niger,4,6.25 E,16.25 N
+Niger,5,6.25 E,18.75 N
+Niger,6,8.75 E,13.75 N
+Niger,7,8.75 E,16.25 N
+Niger,8,8.75 E,18.75 N
+Niger,9,8.75 E,21.25 N
+Niger,10,11.25 E,13.75 N
+Niger,11,11.25 E,16.25 N
+Niger,12,11.25 E,18.75 N
+Niger,13,11.25 E,21.25 N
+Niger,14,13.75 E,16.25 N
+Niger,15,13.75 E,18.75 N
+Niger,16,13.75 E,21.25 N
+Nigeria,1,3.75 E,8.75 N
+Nigeria,2,3.75 E,11.25 N
+Nigeria,3,6.25 E,6.25 N
+Nigeria,4,6.25 E,8.75 N
+Nigeria,5,6.25 E,11.25 N
+Nigeria,6,8.75 E,6.25 N
+Nigeria,7,8.75 E,8.75 N
+Nigeria,8,8.75 E,11.25 N
+Nigeria,9,11.25 E,8.75 N
+Nigeria,10,11.25 E,11.25 N
+Nigeria,11,13.75 E,11.25 N
+Rwanda,1,28.75 E,1.25 S
+Rwanda,2,31.25 E,1.25 S
+Senegal,1,16.25 W,13.75 N
+Senegal,2,16.25 W,16.25 N
+Senegal,3,13.75 W,13.75 N
+Sierra Leone,1,11.25 W,8.75 N
+Somalia,1,41.25 E,1.25 N
+Somalia,2,43.75 E,1.25 N
+Somalia,3,43.75 E,3.75 N
+Somalia,4,46.25 E,3.75 N
+Somalia,5,46.25 E,6.25 N
+Somalia,6,46.25 E,8.75 N
+Somalia,7,48.75 E,6.25 N
+Somalia,8,48.75 E,8.75 N
+Somalia,9,48.75 E,11.25 N
+South Africa,1,18.75 E,33.75 S
+South Africa,2,18.75 E,31.25 S
+South Africa,3,21.25 E,33.75 S
+South Africa,4,21.25 E,31.25 S
+South Africa,5,21.25 E,28.75 S
+South Africa,6,23.75 E,33.75 S
+South Africa,7,23.75 E,31.25 S
+South Africa,8,23.75 E,28.75 S
+South Africa,9,23.75 E,26.25 S
+South Africa,10,26.25 E,33.75 S
+South Africa,11,26.25 E,31.25 S
+South Africa,12,26.25 E,28.75 S
+South Africa,13,26.25 E,26.25 S
+South Africa,14,28.75 E,31.25 S
+South Africa,15,28.75 E,26.25 S
+South Africa,16,28.75 E,23.75 S
+South Africa,17,31.25 E,28.75 S
+South Africa,18,31.25 E,23.75 S
+Sudan,1,23.75 E,8.75 N
+Sudan,2,23.75 E,11.25 N
+Sudan,3,23.75 E,13.75 N
+Sudan,4,26.25 E,8.75 N
+Sudan,5,26.25 E,11.25 N
+Sudan,6,26.25 E,13.75 N
+Sudan,7,26.25 E,16.25 N
+Sudan,8,26.25 E,18.75 N
+Sudan,9,26.25 E,21.25 N
+Sudan,10,28.75 E,6.25 N
+Sudan,11,28.75 E,8.75 N
+Sudan,12,28.75 E,11.25 N
+Sudan,13,28.75 E,13.75 N
+Sudan,14,28.75 E,16.25 N
+Sudan,15,28.75 E,18.75 N
+Sudan,16,28.75 E,21.25 N
+Sudan,17,31.25 E,6.25 N
+Sudan,18,31.25 E,8.75 N
+Sudan,19,31.25 E,11.25 N
+Sudan,20,31.25 E,13.75 N
+Sudan,21,31.25 E,16.25 N
+Sudan,22,31.25 E,18.75 N
+Sudan,23,31.25 E,21.25 N
+Sudan,24,33.75 E,6.25 N
+Sudan,25,33.75 E,8.75 N
+Sudan,26,33.75 E,11.25 N
+Sudan,27,33.75 E,13.75 N
+Sudan,28,33.75 E,16.25 N
+Sudan,29,33.75 E,18.75 N
+Sudan,30,33.75 E,21.25 N
+Sudan,31,36.25 E,13.75 N
+Sudan,32,36.25 E,16.25 N
+Sudan,33,36.25 E,18.75 N
+Sudan,34,36.25 E,21.25 N
+Swaziland,1,31.25 E,26.25 S
+Tanzania,1,31.25 E,6.25 S
+Tanzania,2,31.25 E,3.75 S
+Tanzania,3,31.25 E,1.25 S
+Tanzania,4,33.75 E,8.75 S
+Tanzania,5,33.75 E,6.25 S
+Tanzania,6,33.75 E,3.75 S
+Tanzania,7,33.75 E,1.25 S
+Tanzania,8,36.25 E,11.25 S
+Tanzania,9,36.25 E,8.75 S
+Tanzania,10,36.25 E,6.25 S
+Tanzania,11,36.25 E,3.75 S
+Tanzania,12,38.75 E,8.75 S
+Tanzania,13,38.75 E,6.25 S
+Togo,1,1.25 E,6.25 N
+Togo,2,1.25 E,8.75 N
+Uganda,1,31.25 E,1.25 N
+Uganda,2,31.25 E,3.75 N
+Uganda,3,33.75 E,1.25 N
+Uganda,4,33.75 E,3.75 N
+Zambia,1,23.75 E,16.25 S
+Zambia,2,23.75 E,13.75 S
+Zambia,3,26.25 E,16.25 S
+Zambia,4,26.25 E,13.75 S
+Zambia,5,28.75 E,16.25 S
+Zambia,6,28.75 E,13.75 S
+Zambia,7,28.75 E,11.25 S
+Zambia,8,31.25 E,13.75 S
+Zambia,9,31.25 E,11.25 S
+Zambia,10,31.25 E,8.75 S
+Zimbabwe,1,26.25 E,18.75 S
+Zimbabwe,2,28.75 E,21.25 S
+Zimbabwe,3,28.75 E,18.75 S
+Zimbabwe,4,31.25 E,21.25 S
+Zimbabwe,5,31.25 E,18.75 S
+Zimbabwe,6,31.25 E,16.25 S
