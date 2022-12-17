@@ -26,7 +26,7 @@ knitr::opts_knit$set(root.dir = "/Users/samtan/Downloads/Replication of Miguel's
 ```{r}
 main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
 africa = read_csv('cow_code.csv')
-# raw = haven::read_dta('dataverse_files-4/mss_repdata.dta')
+raw_df = haven::read_dta('replication file provided/mss_repdata.dta')
 monadic = main %>% 
   select(Type, Intensity, YEAR, COW_location, Location) %>%
   pivot_wider(id_cols = c(YEAR,COW_location), names_from = Type,values_from = Intensity, values_fn = max, names_prefix = 'Type', values_fill = 0) 
@@ -155,7 +155,12 @@ ols2.se = sqrt(diag(sandwich::vcovCL(ols2, cluster = ~ccode,type = 'HC1')))
 rmse2 = sqrt(mean(ols2$residuals^2))
 
 
-master_df = master_df %>% mutate(log_Y_0 = log(Y_0))
+#master_df = master_df %>% mutate(log_Y_0 = log(Y_0))
+
+range(master_df$year)
+range(raw_df$year)
+
+
 rformula3 = reformulate(termlabels = c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G', 'GDP_G_L'),response = 'ANY_PRIO')
 ols3 = lm(rformula3, data = master_df)
 ols3.se = sqrt(diag(sandwich::vcovCL(ols3, cluster = ~ccode,type = 'HC1')))
@@ -232,7 +237,7 @@ t5_f1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPC
 ## stage 2: 
 t5_f2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G", "polity2l*GDP_G_L", "polity2l*GDP_G"),response = 'ANY_PRIO')
 
-iv2sls_1 = ivreg(formula = t5_f1, instruments = t5_f2, data = master_df)
+iv2sls_1 = ivreg(formula = t5_f2, instruments = t5_f1, data = master_df)
 iv2sls_1.se = sqrt(diag(sandwich::vcovCL(iv2sls_1, cluster = ~ccode,type = 'HC1'))) # Cluster Robust Standard Error
 
 
@@ -243,7 +248,7 @@ t5_f1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPC
 ## stage 2: 
 t5_f2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G", "Y_0*GDP_G_L", "Y_0*GDP_G"),response = 'ANY_PRIO')
 
-iv2sls_2 = ivreg(formula = t5_f1, instruments = t5_f2, data = master_df)
+iv2sls_2 = ivreg(formula = t5_f2, instruments = t5_f1, data = master_df)
 iv2sls_2.se = sqrt(diag(sandwich::vcovCL(iv2sls_2, cluster = ~ccode,type = 'HC1'))) # Cluster Robust Standard Error
 rmse2 = sqrt(mean(iv2sls_2$residuals^2))
 
@@ -254,7 +259,7 @@ t5_f1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPC
 ## stage 2: 
 t5_f2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G", "ethfrac*GDP_G_L", "ethfrac*GDP_G"),response = 'ANY_PRIO')
 
-iv2sls_3 = ivreg(formula = t5_f1, instruments = t5_f2, data = master_df)
+iv2sls_3 = ivreg(formula = t5_f2, instruments = t5_f1, data = master_df)
 iv2sls_3.se = sqrt(diag(sandwich::vcovCL(iv2sls_3, cluster = ~ccode,type = 'HC1')))
 rmse3 = sqrt(mean(iv2sls_3$residuals^2))
 
@@ -265,7 +270,7 @@ t5_f1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPC
 ## stage 2: 
 t5_f2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G", "Oil*GDP_G_L", "Oil*GDP_G"),response = 'ANY_PRIO')
 
-iv2sls_4 = ivreg(formula = t5_f1, instruments = t5_f2, data = master_df)
+iv2sls_4 = ivreg(formula = t5_f2, instruments = t5_f1, data = master_df)
 iv2sls_4.se = sqrt(diag(sandwich::vcovCL(iv2sls_4, cluster = ~ccode,type = 'HC1')))
 rmse4 = sqrt(mean(iv2sls_4$residuals^2))
 
@@ -277,7 +282,7 @@ t5_f1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPC
 ## stage 2: 
 t5_f2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G_L', "GDP_G", "lmtnest*GDP_G_L", "lmtnest*GDP_G"),response = 'ANY_PRIO')
 
-iv2sls_5 = ivreg(formula = t5_f1, instruments = t5_f2, data = master_df)
+iv2sls_5 = ivreg(formula = t5_f2, instruments = t5_f1, data = master_df)
 iv2sls_5.se = sqrt(diag(sandwich::vcovCL(iv2sls_5, cluster = ~ccode,type = 'HC1')))
 rmse5 = sqrt(mean(iv2sls_5$residuals^2))
 
@@ -406,9 +411,10 @@ range(subset_iv[,'p.value.GDP_G_L'])
 
 # Re-analysis: Inversion Method
 
-
-
 ```{r}
+# Anderson-Rubin interval for the effect of Lagged GDP Growth (%) on Civil Conflict (# of conflicts >= 25 deaths)
+
+# do a sequence of hypothesis tests
 get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
   .data  = master_df
 
@@ -448,7 +454,7 @@ abline(v = point.est.Y1.z1.d1, lty = 2, col = "grey")
 ARCI = CI.Y1.z1.d1
 abline(v = ARCI[1], lty = 2, col = "grey")
 abline(v = ARCI[2], lty = 2, col = "grey")
-tiff("Plot1.tiff', device='tiff', dpi=700)
+
 
 ```
 
