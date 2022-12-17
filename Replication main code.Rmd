@@ -24,7 +24,7 @@ knitr::opts_knit$set(root.dir = "/Users/samtan/Downloads/Replication of Miguel's
 # Data Cleaning
 
 ```{r}
-main =readxl::read_excel("ucdp-prio-acd-3-2005.xls")
+main =readxl::read_excel("/Users/samtan/Documents/GitHub/Stat156-Fa22-Proj/ucdp-prio-acd-3-2005.xls")
 africa = read_csv('cow_code.csv')
 raw_df = haven::read_dta('replication file provided/mss_repdata.dta')
 monadic = main %>% 
@@ -220,9 +220,7 @@ t3_m1 = lm(formula = t3_m1formula, data = master_df)
 t3_m1.coef = t3_m1$coefficients
 t3_m1.se = sqrt(diag(sandwich::vcovCL(t3_m1, cluster = ~ccode,type = 'HC1')))
 
-
 t3_m2formula = reformulate(termlabels = c(grep('Iccode|Iccyear',x = names(master_df),value = T),'GPCP_G','GPCP_G_L'),response = 'WAR_PRIO')
-
 t3_m2 = lm(formula = t3_m2formula, data = master_df)
 t3_m2.coef = t3_m2$coefficients
 t3_m2.se = sqrt(diag(sandwich::vcovCL(t3_m2, cluster = ~ccode,type = 'HC1')))
@@ -293,6 +291,7 @@ stargazer(iv2sls_1,iv2sls_2,iv2sls_3,iv2sls_4,iv2sls_5,se = list(iv2sls_1.se, iv
 
 
 
+  
 ```
 
 
