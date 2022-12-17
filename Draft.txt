@@ -30,5 +30,16 @@ Re-analysis: Inversion Method
 
 In the original paper, the authors use a weak IV and rely on cluster-robust standard errors to construct confidence intervals, based on asymptotic normality. We re-analyzed the data using the Fieller-Anderson-Rubin (FAR) method to construct confidence intervals instead because it's more robust to weak IV. Using FAR, we found that the confidence interval for the effect of lagged economic growth on civil conflict is much **wider** than the ones proposed by the authors. Controlling country characteristics, the graph below shows that the 95% confidene interval for the lagged economic growth range from -6.3 to 1.0, whereas the coefficients given by the authors range from -4.35 to -0.15 (regression 5, table 4). The great uncertainty in our estimates reflect the reality that weak IV tends to make estimates more unstable. Admittally though, the authors included two instruments and two treatments in their linear LV regression, but we only use the lagged economic growth and rainfall as instrument and treatment for our analysis, as we haven't learned how to handle situations where there are multiple intruments and treatments. 
 
+Replication of the main results
+
+There are two main results from the paper. The first result is that a ﬁve-percentage-point decline in annual per capita economic growth causally leads to a 12 percentage-point increase in the incidence of civil conflict in Sub-saharan Africa. The second result is that this finding is robust regardless of the country's characteristics. In other words, economic condition determines the frequency and intensity of civil conflicts much more than a country's political structure (whether it's democratic), population size, demographics (whether it's religiously fragmented) or geology (whether it's mountainous). 
+ 
+  in countries that are regardless of the charasteric    
+
+
+Interpretation: 
+
+Replicate the main result of the paper and interpret it in English;
+
 
 the authors below shows that the 95% confidene interval for the lagged economic growth range from -6.3 to 1.0, whereas the coefficients given by the authors range from -3.00 to 0.21 (regression 5, table 4).
