@@ -147,21 +147,27 @@ master_df = master_df %>% mutate(year_actual = year, year = year_actual - 1978)
 rformula = reformulate(termlabels = c(X,'GDP_G', 'GDP_G_L', 'year'),response = 'ANY_PRIO')
 probit_model = glm(rformula, family = binomial(link = "probit"), data = master_df)
 probit.se = sqrt(diag(sandwich::vcovCL(probit_model, cluster = ~ccode,type = 'HC1')))
+rmse1 = sqrt(mean(probit_model$residuals^2))
 
 rformula2 = reformulate(termlabels = c(X,'GDP_G', 'GDP_G_L', 'year'),response = 'ANY_PRIO')
 ols2 = lm(rformula2, data = master_df)
 ols2.se = sqrt(diag(sandwich::vcovCL(ols2, cluster = ~ccode,type = 'HC1')))
+rmse2 = sqrt(mean(ols2$residuals^2))
 
 
 master_df = master_df %>% mutate(log_Y_0 = log(Y_0))
 rformula3 = reformulate(termlabels = c(grep('Iccyear',x = names(master_df),value = T),X,'GDP_G', 'GDP_G_L'),response = 'ANY_PRIO')
 ols3 = lm(rformula3, data = master_df)
 ols3.se = sqrt(diag(sandwich::vcovCL(ols3, cluster = ~ccode,type = 'HC1')))
+rmse3 = sqrt(mean(ols3$residuals^2))
+
 
 # OLS 4:
 rformula4 = reformulate(termlabels = c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GDP_G', 'GDP_G_L'),response = 'ANY_PRIO')
 ols4 = lm(rformula4, data = master_df)
 ols4.se = sqrt(diag(sandwich::vcovCL(ols4, cluster = ~ccode,type = 'HC1')))
+rmse4 = sqrt(mean(ols4$residuals^2))
+
 
 # IV 2SLS 5:
 # stage 1:
@@ -182,7 +188,7 @@ m6formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T)
 
 iv2sls_6 = ivreg(formula = m6formula2, instruments = m6formula1, data = master_df)
 iv2sls_6.se = sqrt(diag(sandwich::vcovCL(iv2sls_6, cluster = ~ccode,type = 'HC1')))
-rmse6 = sqrt(mean(iv2sls_6$residuals^2))
+rmse6 = round(sqrt(mean(iv2sls_6$residuals^2)),3)
 
 # IV 2SLS 7:
 # stage 1:
@@ -192,7 +198,7 @@ m7formula2 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T)
 
 iv2sls_7 = ivreg(formula = m7formula2, instruments = m7formula1, data = master_df)
 iv2sls_7.se = sqrt(diag(sandwich::vcovCL(iv2sls_7, cluster = ~ccode,type = 'HC1')))
-rmse7 = sqrt(mean(iv2sls_7$residuals^2))
+rmse7 = round(sqrt(mean(iv2sls_7$residuals^2)),3)
 
 # Summary table 4:
 stargazer(probit_model,ols2,ols3,ols4,iv2sls_5,iv2sls_6,iv2sls_7,se = list(probit.se, ols2.se, ols3.se, ols4.se, iv2sls_5.se, iv2sls_6.se, iv2sls_7.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
@@ -353,7 +359,8 @@ master_df  %>%
 # Robustness Check
 
 ```{r}
-# IV 2SLS 6:
+# The IV-2SLS ﬁxed-effects results for the 25-death threshold are robust to dropping one country at a time. 
+
 # stage 1:
 m6formula1 = reformulate(c(grep('Iccyear|Iccode',x = names(master_df),value = T),'GPCP_G', "GPCP_G_L"))
 # stage 2: 
@@ -387,30 +394,21 @@ subset_iv = map_df(1:41, function(i){
          p.value.GDP_G_L))
 })
 
+# coefﬁcients on economic growth
 range(subset_iv[,'GDP_G.coef'])
+# coefﬁcients on lagged economic growth
 range(subset_iv[,'GDP_G_L.coef'])
+# p.value on economic growth 
 range(subset_iv[,'p.value.GDP_G'])
+# coefﬁcients on lagged economic growth
 range(subset_iv[,'p.value.GDP_G_L'])
-
- 
-
-  
-
-
-
-stargazer(iv2sls_6,se = list(iv2sls_6.se), header = F, type = 'text', omit = c('Iccyear','Iccode'), omit.labels = c("Country-speciﬁc time trend","Country fixed effect"))
-
-
 ```
 
 # Re-analysis: Inversion Method
 
 
-```{r} 
-# (Fieller-)Anderson-Rubin test
-# construct confidence interval for IV using the duality between hypothesis testing and confidence interval
 
-
+```{r}
 get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
   .data  = master_df
 
@@ -436,23 +434,22 @@ get_AR_pvals = function(y,z,d,with_cov=T, betas = seq(-10,10,0.1)){
   return(p.values)
 }
 
-
-betas = seq(-10,10,0.01)
-AR_pvals.Y1.z1.d1 = get_AR_pvals(y = 'ANY_PRIO', z  = 'GPCP_G', d = 'GDP_G_L', with_cov = T, betas = betas)
+# AFR test
+betas = seq(-10,5, 0.1)
+AR_pvals.Y1.z1.d1 = get_AR_pvals(y = 'ANY_PRIO', z  = 'GPCP_G_L', d = 'GDP_G_L', with_cov = T, betas = betas)
 
 point.est.Y1.z1.d1 =  betas[which.max(AR_pvals.Y1.z1.d1)]
 CI.Y1.z1.d1 = range(betas[AR_pvals.Y1.z1.d1 >= 0.05])
-
 plot(AR_pvals.Y1.z1.d1 ~ betas, type = "l",
      xlab = "coefficient of GDP Growth",
-     ylab = "p-value",
-     main = "Anderson-Rubin interval for the effect of GDP Growth on Civil Conflict")
+     ylab = "p-value")
 abline(h = 0.05, lty = 2, col = "grey")
 abline(v = point.est.Y1.z1.d1, lty = 2, col = "grey")
-
 ARCI = CI.Y1.z1.d1
 abline(v = ARCI[1], lty = 2, col = "grey")
 abline(v = ARCI[2], lty = 2, col = "grey")
+tiff("Plot1.tiff', device='tiff', dpi=700)
+
 ```
 
 
